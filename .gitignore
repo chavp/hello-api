@@ -4,3 +4,5 @@
 
 /SimpleApi/MooDeng.Api/obj
 /SimpleApi/MooDeng.Api.Tests/obj
+/SimpleApi/MooDeng.Api/bin/Debug/net8.0
+/SimpleApi/MooDeng.Api.Tests/bin/Debug/net8.0
