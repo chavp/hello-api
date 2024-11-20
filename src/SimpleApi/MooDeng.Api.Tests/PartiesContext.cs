@@ -1,27 +1,38 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using static System.Net.Mime.MediaTypeNames;
-using System.Data;
-using System.Security.Claims;
-using MooDeng.Api.Tests.Models;
+using MooDeng.Parties.Models;
 
 
 namespace MooDeng.Api.Tests
 {
     public class PartiesContext : DbContext
     {
+        public DbSet<Party> Parties { get; set; }
+        public DbSet<PartyRole> PartyRoles { get; set; }
+        public DbSet<PartyRoleType> PartyRoleTypes { get; set; }
+        public DbSet<RelationshipPartyRole> RelationshipPartyRoles { get; set; }
+        public DbSet<RelationshipPartyRoleType> RelationshipPartyRoleTypes { get; set; }
         public PartiesContext(DbContextOptions<PartiesContext> options)
             : base(options)
         {
            
         }
-        public DbSet<Party> Parties { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("parties");
 
             modelBuilder.Entity<Person>();
+            modelBuilder.Entity<Animal>();
+            modelBuilder.Entity<Organization>();
 
+            modelBuilder
+            .Entity<PartyRoleType>()
+            .Property(e => e.Code)
+            .HasConversion(ValueConverters.UpperConverter!);
+
+            modelBuilder
+            .Entity<RelationshipPartyRoleType>()
+            .Property(e => e.Code)
+            .HasConversion(ValueConverters.UpperConverter!);
         }
     }
 }

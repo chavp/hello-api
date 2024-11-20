@@ -1,0 +1,13 @@
+D:\projects\mygit\api\hello-api\hello-api\src\SimpleApi\MooDeng.Parties.Models\bin\Debug\net8.0\MooDeng.Parties.Models.deps.json
+D:\projects\mygit\api\hello-api\hello-api\src\SimpleApi\MooDeng.Parties.Models\bin\Debug\net8.0\MooDeng.Parties.Models.dll
+D:\projects\mygit\api\hello-api\hello-api\src\SimpleApi\MooDeng.Parties.Models\bin\Debug\net8.0\MooDeng.Parties.Models.pdb
+D:\projects\mygit\api\hello-api\hello-api\src\SimpleApi\MooDeng.Parties.Models\obj\Debug\net8.0\MooDeng.Parties.Models.csproj.AssemblyReference.cache
+D:\projects\mygit\api\hello-api\hello-api\src\SimpleApi\MooDeng.Parties.Models\obj\Debug\net8.0\MooDeng.Parties.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\projects\mygit\api\hello-api\hello-api\src\SimpleApi\MooDeng.Parties.Models\obj\Debug\net8.0\MooDeng.Parties.Models.AssemblyInfoInputs.cache
+D:\projects\mygit\api\hello-api\hello-api\src\SimpleApi\MooDeng.Parties.Models\obj\Debug\net8.0\MooDeng.Parties.Models.AssemblyInfo.cs
+D:\projects\mygit\api\hello-api\hello-api\src\SimpleApi\MooDeng.Parties.Models\obj\Debug\net8.0\MooDeng.Parties.Models.csproj.CoreCompileInputs.cache
+D:\projects\mygit\api\hello-api\hello-api\src\SimpleApi\MooDeng.Parties.Models\obj\Debug\net8.0\MooDeng.Parties.Models.sourcelink.json
+D:\projects\mygit\api\hello-api\hello-api\src\SimpleApi\MooDeng.Parties.Models\obj\Debug\net8.0\MooDeng.Parties.Models.dll
+D:\projects\mygit\api\hello-api\hello-api\src\SimpleApi\MooDeng.Parties.Models\obj\Debug\net8.0\refint\MooDeng.Parties.Models.dll
+D:\projects\mygit\api\hello-api\hello-api\src\SimpleApi\MooDeng.Parties.Models\obj\Debug\net8.0\MooDeng.Parties.Models.pdb
+D:\projects\mygit\api\hello-api\hello-api\src\SimpleApi\MooDeng.Parties.Models\obj\Debug\net8.0\ref\MooDeng.Parties.Models.dll

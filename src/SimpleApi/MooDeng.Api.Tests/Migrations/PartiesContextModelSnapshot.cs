@@ -23,7 +23,7 @@ namespace MooDeng.Api.Tests.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MooDeng.Api.Tests.Models.Party", b =>
+            modelBuilder.Entity("MooDeng.Parties.Models.Party", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,9 +54,216 @@ namespace MooDeng.Api.Tests.Migrations
                     b.UseTptMappingStrategy();
                 });
 
-            modelBuilder.Entity("MooDeng.Api.Tests.Models.Person", b =>
+            modelBuilder.Entity("MooDeng.Parties.Models.PartyRole", b =>
                 {
-                    b.HasBaseType("MooDeng.Api.Tests.Models.Party");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTime>("EffectiveDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpiryDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LastUpdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastUpdateBy")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<Guid>("PartyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PartyRoleTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Revision")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PartyId");
+
+                    b.HasIndex("PartyRoleTypeId");
+
+                    b.ToTable("PartyRoles", "parties");
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.PartyRoleType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastUpdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastUpdateBy")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<decimal>("Revision")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("PartyRoleTypes", "parties");
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.RelationshipPartyRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTime>("EffectiveDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpiryDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("FromPartyRoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastUpdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastUpdateBy")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<Guid>("RelationshipPartyRoleTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Revision")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.Property<Guid?>("ToPartyRoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FromPartyRoleId");
+
+                    b.HasIndex("RelationshipPartyRoleTypeId");
+
+                    b.HasIndex("ToPartyRoleId");
+
+                    b.ToTable("RelationshipPartyRoles", "parties");
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.RelationshipPartyRoleType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastUpdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastUpdateBy")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<decimal>("Revision")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("RelationshipPartyRoleTypes", "parties");
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.Animal", b =>
+                {
+                    b.HasBaseType("MooDeng.Parties.Models.Party");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.ToTable("Animals", "parties");
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.Organization", b =>
+                {
+                    b.HasBaseType("MooDeng.Parties.Models.Party");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.ToTable("Organizations", "parties");
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.Person", b =>
+                {
+                    b.HasBaseType("MooDeng.Parties.Models.Party");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -66,11 +273,71 @@ namespace MooDeng.Api.Tests.Migrations
                     b.ToTable("People", "parties");
                 });
 
-            modelBuilder.Entity("MooDeng.Api.Tests.Models.Person", b =>
+            modelBuilder.Entity("MooDeng.Parties.Models.PartyRole", b =>
                 {
-                    b.HasOne("MooDeng.Api.Tests.Models.Party", null)
+                    b.HasOne("MooDeng.Parties.Models.Party", "Party")
+                        .WithMany()
+                        .HasForeignKey("PartyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MooDeng.Parties.Models.PartyRoleType", "PartyRoleType")
+                        .WithMany()
+                        .HasForeignKey("PartyRoleTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Party");
+
+                    b.Navigation("PartyRoleType");
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.RelationshipPartyRole", b =>
+                {
+                    b.HasOne("MooDeng.Parties.Models.PartyRole", "FromPartyRole")
+                        .WithMany()
+                        .HasForeignKey("FromPartyRoleId");
+
+                    b.HasOne("MooDeng.Parties.Models.RelationshipPartyRoleType", "RelationshipPartyRoleType")
+                        .WithMany()
+                        .HasForeignKey("RelationshipPartyRoleTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MooDeng.Parties.Models.PartyRole", "ToPartyRole")
+                        .WithMany()
+                        .HasForeignKey("ToPartyRoleId");
+
+                    b.Navigation("FromPartyRole");
+
+                    b.Navigation("RelationshipPartyRoleType");
+
+                    b.Navigation("ToPartyRole");
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.Animal", b =>
+                {
+                    b.HasOne("MooDeng.Parties.Models.Party", null)
                         .WithOne()
-                        .HasForeignKey("MooDeng.Api.Tests.Models.Person", "Id")
+                        .HasForeignKey("MooDeng.Parties.Models.Animal", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.Organization", b =>
+                {
+                    b.HasOne("MooDeng.Parties.Models.Party", null)
+                        .WithOne()
+                        .HasForeignKey("MooDeng.Parties.Models.Organization", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.Person", b =>
+                {
+                    b.HasOne("MooDeng.Parties.Models.Party", null)
+                        .WithOne()
+                        .HasForeignKey("MooDeng.Parties.Models.Person", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

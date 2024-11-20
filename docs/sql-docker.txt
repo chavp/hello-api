@@ -1,0 +1,7 @@
+httpslearn.microsoft.comen-ussqllinuxquickstart-install-connect-dockerview=sql-server-ver16&tabs=cli&pivots=cs1-bash
+
+docker pull mcr.microsoft.commssqlserver2022-latest
+docker run -e ACCEPT_EULA=Y -e MSSQL_SA_PASSWORD=mflv[@1234b -p 14331433 --name sql1 --hostname sql1 -d mcr.microsoft.commssqlserver2022-latest
+
+connection string
+Server=127.0.0.1;Database=parties_db;TrustServerCertificate=True;User Id=sa;Password=mflv[@1234b;
