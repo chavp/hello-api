@@ -1,0 +1,85 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\projects\\mygit\\api\\hello-api\\src\\SimpleApi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DF6D058E-3B24-4A8C-837E-120ECDB65340}|MooDeng.Api.Tests\\MooDeng.Api.Tests.csproj|d:\\projects\\mygit\\api\\hello-api\\src\\simpleapi\\moodeng.api.tests\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF6D058E-3B24-4A8C-837E-120ECDB65340}|MooDeng.Api.Tests\\MooDeng.Api.Tests.csproj|solutionrelative:moodeng.api.tests\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF6D058E-3B24-4A8C-837E-120ECDB65340}|MooDeng.Api.Tests\\MooDeng.Api.Tests.csproj|d:\\projects\\mygit\\api\\hello-api\\src\\simpleapi\\moodeng.api.tests\\partiescontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF6D058E-3B24-4A8C-837E-120ECDB65340}|MooDeng.Api.Tests\\MooDeng.Api.Tests.csproj|solutionrelative:moodeng.api.tests\\partiescontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF6D058E-3B24-4A8C-837E-120ECDB65340}|MooDeng.Api.Tests\\MooDeng.Api.Tests.csproj|d:\\projects\\mygit\\api\\hello-api\\src\\simpleapi\\moodeng.api.tests\\models\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF6D058E-3B24-4A8C-837E-120ECDB65340}|MooDeng.Api.Tests\\MooDeng.Api.Tests.csproj|solutionrelative:moodeng.api.tests\\models\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF6D058E-3B24-4A8C-837E-120ECDB65340}|MooDeng.Api.Tests\\MooDeng.Api.Tests.csproj|d:\\projects\\mygit\\api\\hello-api\\src\\simpleapi\\moodeng.api.tests\\migrations\\20241120054955_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF6D058E-3B24-4A8C-837E-120ECDB65340}|MooDeng.Api.Tests\\MooDeng.Api.Tests.csproj|solutionrelative:moodeng.api.tests\\migrations\\20241120054955_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "D:\\projects\\mygit\\api\\hello-api\\src\\SimpleApi\\MooDeng.Api.Tests\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "MooDeng.Api.Tests\\UnitTest1.cs",
+              "ToolTip": "D:\\projects\\mygit\\api\\hello-api\\src\\SimpleApi\\MooDeng.Api.Tests\\UnitTest1.cs",
+              "RelativeToolTip": "MooDeng.Api.Tests\\UnitTest1.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAwA8AAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-20T05:52:26.706Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PartiesContextFactory.cs",
+              "DocumentMoniker": "D:\\projects\\mygit\\api\\hello-api\\src\\SimpleApi\\MooDeng.Api.Tests\\PartiesContextFactory.cs",
+              "RelativeDocumentMoniker": "MooDeng.Api.Tests\\PartiesContextFactory.cs",
+              "ToolTip": "D:\\projects\\mygit\\api\\hello-api\\src\\SimpleApi\\MooDeng.Api.Tests\\PartiesContextFactory.cs",
+              "RelativeToolTip": "MooDeng.Api.Tests\\PartiesContextFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-20T05:50:05.06Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "20241120054955_init.cs",
+              "DocumentMoniker": "D:\\projects\\mygit\\api\\hello-api\\src\\SimpleApi\\MooDeng.Api.Tests\\Migrations\\20241120054955_init.cs",
+              "RelativeDocumentMoniker": "MooDeng.Api.Tests\\Migrations\\20241120054955_init.cs",
+              "ToolTip": "D:\\projects\\mygit\\api\\hello-api\\src\\SimpleApi\\MooDeng.Api.Tests\\Migrations\\20241120054955_init.cs",
+              "RelativeToolTip": "MooDeng.Api.Tests\\Migrations\\20241120054955_init.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwA0AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-20T05:49:55.605Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Person.cs",
+              "DocumentMoniker": "D:\\projects\\mygit\\api\\hello-api\\src\\SimpleApi\\MooDeng.Api.Tests\\Models\\Person.cs",
+              "RelativeDocumentMoniker": "MooDeng.Api.Tests\\Models\\Person.cs",
+              "ToolTip": "D:\\projects\\mygit\\api\\hello-api\\src\\SimpleApi\\MooDeng.Api.Tests\\Models\\Person.cs",
+              "RelativeToolTip": "MooDeng.Api.Tests\\Models\\Person.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-20T05:48:58.755Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
