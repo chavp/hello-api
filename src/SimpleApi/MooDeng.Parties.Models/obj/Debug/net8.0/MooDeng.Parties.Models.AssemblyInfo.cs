@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MooDeng.Parties.Models")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ea39478ace586ed6a9299aaff55144d25c3d484b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+437b18dd37a63632f156971c6ea525ab1a626bbb")]
 [assembly: System.Reflection.AssemblyProductAttribute("MooDeng.Parties.Models")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MooDeng.Parties.Models")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
