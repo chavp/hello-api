@@ -1,3 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using MooDeng.Parties.IServices;
+using MooDeng.Parties.Mappings;
+using MooDeng.Parties.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +12,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IPartiesService, PartiesService>();
+
+builder.Services.AddDbContextFactory<PartiesContext>(
+        options => options.UseSqlServer(builder.Configuration.GetConnectionString("parties_db")));
 
 var app = builder.Build();
 

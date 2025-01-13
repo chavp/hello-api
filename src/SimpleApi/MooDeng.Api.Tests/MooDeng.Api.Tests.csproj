@@ -22,6 +22,7 @@
     <ProjectReference Include="..\MooDeng.Parties.IServices\MooDeng.Parties.IServices.csproj" />
     <ProjectReference Include="..\MooDeng.Parties.Mappings\MooDeng.Parties.Mappings.csproj" />
     <ProjectReference Include="..\MooDeng.Parties.Models\MooDeng.Parties.Models.csproj" />
+    <ProjectReference Include="..\MooDeng.Parties.Services\MooDeng.Parties.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

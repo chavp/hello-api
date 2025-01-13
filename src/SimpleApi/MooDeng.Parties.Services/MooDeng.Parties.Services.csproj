@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MooDeng.Parties.IServices\MooDeng.Parties.IServices.csproj" />
+    <ProjectReference Include="..\MooDeng.Parties.Mappings\MooDeng.Parties.Mappings.csproj" />
+  </ItemGroup>
+
+</Project>

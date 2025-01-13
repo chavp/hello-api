@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MooDeng.Parties.Mappings;
 using MooDeng.Parties.Models;
+using MooDeng.Parties.Services;
 
 namespace MooDeng.Api.Tests
 {
@@ -10,6 +11,7 @@ namespace MooDeng.Api.Tests
     {
         protected readonly IConfigurationRoot _config = null;
         protected readonly DbContextOptionsBuilder<PartiesContext> _partiesBuilder = null;
+        protected readonly TestDbContextFactory _testDbContextFactory;
 
         public UnitTest1()
         {
@@ -19,12 +21,14 @@ namespace MooDeng.Api.Tests
 
             _partiesBuilder = new DbContextOptionsBuilder<PartiesContext>()
                 .UseSqlServer(_config.GetConnectionString("parties_db"));
+
+            _testDbContextFactory = new TestDbContextFactory(_config.GetConnectionString("parties_db"));
         }
 
         [Fact]
         public void AddRolePet()
         {
-            using (var db = new PartiesContext(_partiesBuilder.Options))
+            using (var db = _testDbContextFactory.CreateDbContext())
             {
                 var pet = new PartyRoleType(PartyRoleType.Pet);
                 db.Add(pet);
@@ -42,7 +46,7 @@ namespace MooDeng.Api.Tests
         [Fact]
         public void AddMooDeng()
         {
-            using (var db = new PartiesContext(_partiesBuilder.Options))
+            using (var db = _testDbContextFactory.CreateDbContext())
             {
                 var mooDeng = new Animal{ Name = "MooDeng" };
                 db.Add(mooDeng);
@@ -70,42 +74,32 @@ namespace MooDeng.Api.Tests
             }
         }
 
-
         [Fact]
         public async Task GetPetsFromZoo()
         {
-            using (var db = new PartiesContext(_partiesBuilder.Options))
-            {
+            var service = new PartiesService(_testDbContextFactory);
+            var zoos = await service.GetOrganizationByRoleTypeCodeAsync(PartyRoleType.Zoo, DateTime.Today);
 
-                var service = new PartiesService(db);
-                var zoos = await service.GetOrganizationByRoleTypeCodeAsync(PartyRoleType.Zoo, DateTime.Today);
+            var zoo = zoos.Single(x => x.PartyCode == "KKOZ");
 
-                var zoo = zoos.Single(x => x.PartyCode == "KKOZ");
-
-                var animals = await service.GetToPartiesFromPartyByRelationshipPartyRoleTypeCodeAsync(zoo.PartyId,
-                    RelationshipPartyRoleType.BringUp, DateTime.Today);
-            }
+            var animals = await service.GetToPartiesFromPartyByRelationshipPartyRoleTypeCodeAsync(zoo.PartyId,
+                RelationshipPartyRoleType.BringUp, DateTime.Today);
         }
 
         [Fact]
         public async Task GetZoos()
         {
 
-            using (var db = new PartiesContext(_partiesBuilder.Options))
+            var service = new PartiesService(_testDbContextFactory);
+            var zoos = await service.GetOrganizationByRoleTypeCodeAsync(PartyRoleType.Zoo, DateTime.Today);
+
+            var zoo = zoos.Single(x => x.PartyCode == "KKOZ");
+
+            await service.SaveOrganizationAsync(zoo.PartyId, new Parties.IServices.Dto.OrganizationDataDto
             {
-                var service = new PartiesService(db);
-                var zoos = await service.GetOrganizationByRoleTypeCodeAsync(PartyRoleType.Zoo, DateTime.Today);
-
-                var zoo = zoos.Single(x => x.PartyCode == "KKOZ");
-
-                await service.SaveOrganizationAsync(zoo.PartyId, new Parties.IServices.Dto.OrganizationDataDto
-                {
-                    PartyCode = zoo.PartyCode,
-                    PartyName = "Khao Kheow Open Zoo test",
-                });
-
-                db.SaveChanges();
-            }
+                PartyCode = zoo.PartyCode,
+                PartyName = "Khao Kheow Open Zoo",
+            });
         }
 
         private static void CreateCommand(string queryString, string connectionString)

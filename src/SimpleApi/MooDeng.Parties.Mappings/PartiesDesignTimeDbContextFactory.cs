@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace MooDeng.Parties.Mappings
 {
-    public class PartiesContextFactory : IDesignTimeDbContextFactory<PartiesContext>
+    public class PartiesDesignTimeDbContextFactory : IDesignTimeDbContextFactory<PartiesContext>
     {
         public PartiesContext CreateDbContext(string[] args)
         {
