@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,15 +10,17 @@ using System.Threading.Tasks;
 namespace MooDeng.Parties.Models
 {
     [Table("Organizations")]
+    [Index(nameof(Code), IsUnique = true)]
     public class Organization : Party
     {
         protected Organization() { }
-        public Organization(string name)
+        public Organization(string code)
         {
-            Name = name;
+            Code = code;
         }
 
-        [StringLength(1000), Required]
-        public string Name { get; set; }
+        [StringLength(255), Required]
+        public string Code { get; set; }
+
     }
 }

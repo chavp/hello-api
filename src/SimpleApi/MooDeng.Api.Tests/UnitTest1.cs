@@ -1,7 +1,9 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using MooDeng.Parties.Models;
+using System.Data.Entity;
 
 namespace MooDeng.Api.Tests
 {
@@ -43,13 +45,16 @@ namespace MooDeng.Api.Tests
         {
             using (var db = new PartiesContext(_partiesBuilder.Options))
             {
-                var mooDeng = new Animal("MooDeng");
+                var mooDeng = new Animal{ Name = "MooDeng" };
                 db.Add(mooDeng);
                 var petRoleType = db.PartyRoleTypes.Single(x => x.Code == PartyRoleType.Pet);
                 var mooDengPet = new PartyRole(petRoleType, mooDeng);
                 db.Add(mooDengPet);
 
-                var zoo = new Organization("Khao Kheow Open Zoo");
+                var zoo = new Organization("KKOZ")
+                {
+                    Name = "Khao Kheow Open Zoo"
+                };
                 db.Add(zoo);
                 var zooRoleType = db.PartyRoleTypes.Single(x => x.Code == PartyRoleType.Zoo);
                 var mooDengZoo = new PartyRole(zooRoleType, zoo);
@@ -68,29 +73,39 @@ namespace MooDeng.Api.Tests
 
 
         [Fact]
-        public void GetPetsFromZoo()
+        public async Task GetPetsFromZoo()
         {
             using (var db = new PartiesContext(_partiesBuilder.Options))
             {
-                var zoo = (from z in db.Parties.OfType<Organization>()
-                          join pr in db.PartyRoles on z equals pr.Party
-                          where pr.PartyRoleType.Code == PartyRoleType.Zoo
-                          && pr.EffectiveDateTime <= DateTime.Today
-                           && DateTime.Today <= pr.ExpiryDateTime
-                           && z.Name == "Khao Kheow Open Zoo"
-                           select z).Single();
 
-                var pets = (from p in db.Parties.OfType<Animal>()
-                           join pr in db.PartyRoles on p equals pr.Party
-                           join prr in db.RelationshipPartyRoles on pr equals prr.ToPartyRole
-                           where pr.PartyRoleType.Code == PartyRoleType.Pet
-                           && pr.EffectiveDateTime <= DateTime.Today
-                           && DateTime.Today <= pr.ExpiryDateTime
-                           && prr.EffectiveDateTime <= DateTime.Today
-                           && DateTime.Today <= prr.ExpiryDateTime
-                           && prr.FromPartyRole.PartyId == zoo.Id
-                            select p).ToList();
+                var service = new PartiesService(db);
+                var zoos = await service.GetOrganizationByRoleTypeCodeAsync(PartyRoleType.Zoo, DateTime.Today);
 
+                var zoo = zoos.Single(x => x.PartyCode == "KKOZ");
+
+                var animals = await service.GetToPartiesFromPartyByRelationshipPartyRoleTypeCodeAsync(zoo.PartyId,
+                    RelationshipPartyRoleType.BringUp, DateTime.Today);
+            }
+        }
+
+        [Fact]
+        public async Task GetZoos()
+        {
+
+            using (var db = new PartiesContext(_partiesBuilder.Options))
+            {
+                var service = new PartiesService(db);
+                var zoos = await service.GetOrganizationByRoleTypeCodeAsync(PartyRoleType.Zoo, DateTime.Today);
+
+                var zoo = zoos.Single(x => x.PartyCode == "KKOZ");
+
+                await service.SaveOrganizationAsync(zoo.PartyId, new Parties.IServices.Dto.OrganizationDataDto
+                {
+                    PartyCode = zoo.PartyCode,
+                    PartyName = "Khao Kheow Open Zoo test",
+                });
+
+                db.SaveChanges();
             }
         }
 

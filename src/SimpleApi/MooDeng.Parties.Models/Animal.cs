@@ -11,13 +11,6 @@ namespace MooDeng.Parties.Models
     [Table("Animals")]
     public class Animal : Party
     {
-        protected Animal() { }
-        public Animal(string name)
-        {
-            Name = name;
-        }
-
-        [StringLength(1000), Required]
-        public string Name { get; set; }
+        
     }
 }

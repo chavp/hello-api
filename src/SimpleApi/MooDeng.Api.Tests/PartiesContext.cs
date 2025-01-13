@@ -16,6 +16,8 @@ namespace MooDeng.Api.Tests
         {
            
         }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("parties");
@@ -33,6 +35,11 @@ namespace MooDeng.Api.Tests
             .Entity<RelationshipPartyRoleType>()
             .Property(e => e.Code)
             .HasConversion(ValueConverters.UpperConverter!);
+
+            modelBuilder
+           .Entity<Organization>()
+           .Property(e => e.Code)
+           .HasConversion(ValueConverters.UpperConverter!);
         }
     }
 }

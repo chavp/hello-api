@@ -44,6 +44,10 @@ namespace MooDeng.Api.Tests.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
+                    b.Property<string>("Name")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
                     b.Property<decimal>("Revision")
                         .HasColumnType("decimal(20,0)");
 
@@ -241,11 +245,6 @@ namespace MooDeng.Api.Tests.Migrations
                 {
                     b.HasBaseType("MooDeng.Parties.Models.Party");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
                     b.ToTable("Animals", "parties");
                 });
 
@@ -253,10 +252,14 @@ namespace MooDeng.Api.Tests.Migrations
                 {
                     b.HasBaseType("MooDeng.Parties.Models.Party");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasFilter("[Code] IS NOT NULL");
 
                     b.ToTable("Organizations", "parties");
                 });
@@ -264,11 +267,6 @@ namespace MooDeng.Api.Tests.Migrations
             modelBuilder.Entity("MooDeng.Parties.Models.Person", b =>
                 {
                     b.HasBaseType("MooDeng.Parties.Models.Party");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
 
                     b.ToTable("People", "parties");
                 });

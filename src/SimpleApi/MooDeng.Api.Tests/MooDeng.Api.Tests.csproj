@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MooDeng.Parties.IServices\MooDeng.Parties.IServices.csproj" />
     <ProjectReference Include="..\MooDeng.Parties.Models\MooDeng.Parties.Models.csproj" />
   </ItemGroup>
 
