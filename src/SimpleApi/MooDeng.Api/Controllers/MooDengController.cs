@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MooDeng.Parties.IServices;
 using MooDeng.Parties.IServices.Dto;
 using MooDeng.Parties.Models;
+using System.Collections.Immutable;
 
 namespace MooDeng.Api.Controllers
 {
@@ -28,10 +29,10 @@ namespace MooDeng.Api.Controllers
         }
 
         [HttpGet("zoos")]
-        public async Task<OrganizationDto> Zoos([FromQuery] string code)
+        public async Task<IImmutableList<OrganizationDto>> Zoos(DateTime? activeDate = null)
         {
-            var zoos = await _partiesService.GetOrganizationByRoleTypeCodeAsync(PartyRoleType.Zoo, DateTime.Today);
-            return zoos.SingleOrDefault(x => x.PartyCode == code);
+            var zoos = await _partiesService.GetOrganizationByRoleTypeCodeAsync(PartyRoleType.Zoo, activeDate);
+            return zoos;
         }
     }
 }

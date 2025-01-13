@@ -15,30 +15,37 @@ namespace MooDeng.Parties.Services
             _contextFactory = contextFactory;
         }
 
-        public async Task<IImmutableList<OrganizationDto>> GetOrganizationByRoleTypeCodeAsync(string roleTypeCode, DateTime activeDate)
+        public async Task<IImmutableList<OrganizationDto>> GetOrganizationByRoleTypeCodeAsync(string roleTypeCode, DateTime? activeDate)
         {
             using(var db = _contextFactory.CreateDbContext())
             {
-                var orgs = (from z in db.Parties.OfType<Organization>()
+                var qOrgs = from z in db.Parties.OfType<Organization>()
                             join pr in db.PartyRoles on z equals pr.Party
                             where pr.PartyRoleType.Code == roleTypeCode
-                            && pr.EffectiveDateTime <= activeDate
-                             && activeDate <= pr.ExpiryDateTime
+                            select new { z, pr };
+
+                if (activeDate.HasValue)
+                {
+                    qOrgs = qOrgs.Where(x => x.pr.EffectiveDateTime <= activeDate
+                             && activeDate <= x.pr.ExpiryDateTime);
+                }
+
+                var orgs = (from x in qOrgs
                             select new OrganizationDto
                             {
-                                PartyId = pr.PartyId,
-                                PartyCode = z.Code,
-                                PartyName = z.Name,
-                                PartyRoleEffectiveDateTime = pr.EffectiveDateTime,
-                                PartyRoleExpiryDateTime = pr.ExpiryDateTime,
-                                PartyRoleTypeCode = pr.PartyRoleType.Code,
+                                PartyId = x.pr.PartyId,
+                                PartyCode = x.z.Code,
+                                PartyName = x.z.Name,
+                                PartyRoleEffectiveDateTime = x.pr.EffectiveDateTime,
+                                PartyRoleExpiryDateTime = x.pr.ExpiryDateTime,
+                                PartyRoleTypeCode = x.pr.PartyRoleType.Code,
                             }).ToList();
 
                 return orgs.ToImmutableList();
             }
         }
 
-        public async Task<IImmutableList<PartyDto>> GetToPartiesFromPartyByRelationshipPartyRoleTypeCodeAsync(Guid fromPartyId, string relationshipPartyRoleTypeCode, DateTime activeDate)
+        public async Task<IImmutableList<PartyDto>> GetToPartiesFromPartyByRelationshipPartyRoleTypeCodeAsync(Guid fromPartyId, string relationshipPartyRoleTypeCode, DateTime? activeDate)
         {
             using (var db = _contextFactory.CreateDbContext())
             {
