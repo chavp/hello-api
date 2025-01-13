@@ -1,15 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using MooDeng.Parties.IServices;
 using MooDeng.Parties.IServices.Dto;
+using MooDeng.Parties.Mappings;
 using MooDeng.Parties.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MooDeng.Api.Tests
 {

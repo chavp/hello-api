@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace MooDeng.Api.Tests
+namespace MooDeng.Parties.Mappings
 {
     public class PartiesContextFactory : IDesignTimeDbContextFactory<PartiesContext>
     {

@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "parties", "parties", "{6D07
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MooDeng.Parties.IServices", "MooDeng.Parties.IServices\MooDeng.Parties.IServices.csproj", "{AD21B359-641E-4AE8-8D1C-B18FA0185D3B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{95167940-0B62-4BF1-812E-0ADD39A06155}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MooDeng.Parties.Mappings", "MooDeng.Parties.Mappings\MooDeng.Parties.Mappings.csproj", "{184B5DB1-552A-48A7-A284-C782BEE92D82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,13 +45,19 @@ Global
 		{AD21B359-641E-4AE8-8D1C-B18FA0185D3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD21B359-641E-4AE8-8D1C-B18FA0185D3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD21B359-641E-4AE8-8D1C-B18FA0185D3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{184B5DB1-552A-48A7-A284-C782BEE92D82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{184B5DB1-552A-48A7-A284-C782BEE92D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{184B5DB1-552A-48A7-A284-C782BEE92D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{184B5DB1-552A-48A7-A284-C782BEE92D82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{E1F77C5B-E89C-4CE8-99D3-24AC67577581} = {95167940-0B62-4BF1-812E-0ADD39A06155}
 		{2CF44366-A79B-406E-A326-538206778F9B} = {6D078C06-BF3C-4D77-B17C-3BE46ACA42E8}
 		{AD21B359-641E-4AE8-8D1C-B18FA0185D3B} = {6D078C06-BF3C-4D77-B17C-3BE46ACA42E8}
+		{184B5DB1-552A-48A7-A284-C782BEE92D82} = {6D078C06-BF3C-4D77-B17C-3BE46ACA42E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28217CD8-1A10-4CBB-BD46-D8F95E3344E1}

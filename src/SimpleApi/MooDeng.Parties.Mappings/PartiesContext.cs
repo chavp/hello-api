@@ -2,7 +2,7 @@
 using MooDeng.Parties.Models;
 
 
-namespace MooDeng.Api.Tests
+namespace MooDeng.Parties.Mappings
 {
     public class PartiesContext : DbContext
     {

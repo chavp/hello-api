@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MooDeng.Api.Tests
+namespace MooDeng.Parties.Mappings
 {
     public static class ValueConverters
     {

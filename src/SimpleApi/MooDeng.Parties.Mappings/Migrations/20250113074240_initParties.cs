@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MooDeng.Api.Tests.Migrations
+namespace MooDeng.Parties.Mappings.Migrations
 {
     /// <inheritdoc />
     public partial class initParties : Migration

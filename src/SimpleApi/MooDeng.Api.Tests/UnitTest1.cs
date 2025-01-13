@@ -1,9 +1,8 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
+using MooDeng.Parties.Mappings;
 using MooDeng.Parties.Models;
-using System.Data.Entity;
 
 namespace MooDeng.Api.Tests
 {

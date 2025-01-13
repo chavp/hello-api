@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MooDeng.Api.Tests;
+using MooDeng.Parties.Mappings;
 
 #nullable disable
 
-namespace MooDeng.Api.Tests.Migrations
+namespace MooDeng.Parties.Mappings.Migrations
 {
     [DbContext(typeof(PartiesContext))]
-    [Migration("20250113071124_initParties")]
-    partial class initParties
+    partial class PartiesContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
