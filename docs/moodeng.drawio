@@ -52,7 +52,7 @@
             <mxPoint x="112" y="730" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="BN5Ov0yuJtXu7fKofO-b-13" value="RelationshipPartys" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="BN5Ov0yuJtXu7fKofO-b-13" value="RelationshipParties" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-240" y="450" width="160" height="60" as="geometry" />
         </mxCell>
         <mxCell id="BN5Ov0yuJtXu7fKofO-b-14" value="from" style="fontSize=12;html=1;endArrow=ERone;endFill=1;rounded=0;edgeStyle=orthogonalEdgeStyle;" parent="1" source="BN5Ov0yuJtXu7fKofO-b-4" target="BN5Ov0yuJtXu7fKofO-b-13" edge="1">
