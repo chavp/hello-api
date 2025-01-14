@@ -52,7 +52,7 @@
             <mxPoint x="112" y="730" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="BN5Ov0yuJtXu7fKofO-b-13" value="RelationshipPartyRoles" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="BN5Ov0yuJtXu7fKofO-b-13" value="RelationshipPartys" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-240" y="450" width="160" height="60" as="geometry" />
         </mxCell>
         <mxCell id="BN5Ov0yuJtXu7fKofO-b-14" value="from" style="fontSize=12;html=1;endArrow=ERone;endFill=1;rounded=0;edgeStyle=orthogonalEdgeStyle;" parent="1" source="BN5Ov0yuJtXu7fKofO-b-4" target="BN5Ov0yuJtXu7fKofO-b-13" edge="1">
@@ -75,7 +75,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="BN5Ov0yuJtXu7fKofO-b-17" value="RelationshipPartyRoleTypes&lt;div&gt;{ BRING_UP }&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="BN5Ov0yuJtXu7fKofO-b-17" value="RelationshipPartyTypes&lt;div&gt;{ BRING_UP }&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-500" y="450" width="190" height="60" as="geometry" />
         </mxCell>
         <mxCell id="BN5Ov0yuJtXu7fKofO-b-18" value="" style="fontSize=12;html=1;endArrow=ERoneToMany;rounded=0;" parent="1" source="BN5Ov0yuJtXu7fKofO-b-17" target="BN5Ov0yuJtXu7fKofO-b-13" edge="1">
