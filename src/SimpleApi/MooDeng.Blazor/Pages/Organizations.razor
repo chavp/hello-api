@@ -1,0 +1,52 @@
+﻿@page "/organizations"
+@inject IHttpClientFactory ClientFactory
+
+@using System.Net.Http.Json
+@using MooDeng.Parties.IServices.Dto
+
+<h3>Organizations</h3>
+
+@if (organizations == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th hidden>Id</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Role Type Code</th>
+                <th>Role Effective</th>
+                <th>Role Expiry</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var org in organizations)
+            {
+                <tr>
+                    <td hidden>@org.PartyId</td>
+                    <td>@org.PartyCode</td>
+                    <td>@org.PartyName</td>
+                    <td>@org.PartyRoleTypeCode</td>
+                    <td>@org.PartyRoleEffectiveDateTime.ToString("dd/MM/yyyy")</td>
+                    <td>@org.PartyRoleExpiryDateTime.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private OrganizationDto[]? organizations;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = ClientFactory.CreateClient("MooDengApi");
+
+        organizations = await client.GetFromJsonAsync<OrganizationDto[]>("moodeng/zoos");
+
+    }
+}

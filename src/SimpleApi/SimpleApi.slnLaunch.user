@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "MooDeng.Api\\MooDeng.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "MooDeng.Blazor\\MooDeng.Blazor.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

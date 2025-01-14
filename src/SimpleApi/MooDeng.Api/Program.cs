@@ -18,6 +18,18 @@ builder.Services.AddScoped<IPartiesService, PartiesService>();
 builder.Services.AddDbContextFactory<PartiesContext>(
         options => options.UseSqlServer(builder.Configuration.GetConnectionString("parties_db")));
 
+builder.Services.AddCors(policy => {
+
+    policy.AddPolicy("Policy_Name", builder =>
+      builder.WithOrigins("https://*:7152/")
+        .SetIsOriginAllowedToAllowWildcardSubdomains()
+        .AllowAnyOrigin()
+
+
+ );
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,5 +44,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("Policy_Name");
 
 app.Run();
