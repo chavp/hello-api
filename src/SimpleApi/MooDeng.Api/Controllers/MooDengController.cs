@@ -29,9 +29,17 @@ namespace MooDeng.Api.Controllers
         }
 
         [HttpGet("zoos")]
-        public async Task<IImmutableList<OrganizationDto>> Zoos(DateTime? activeDate = null)
+        public async Task<IImmutableList<OrganizationDto>> Zoos([FromQuery] DateTime? activeDate = null)
         {
             var zoos = await _partiesService.GetOrganizationByRoleTypeCodeAsync(PartyRoleType.Zoo, activeDate);
+            return zoos;
+        }
+
+        [HttpGet("zoos/{partyId}/bring-up")]
+        public async Task<IImmutableList<PartyDto>> ZoosBringUp(Guid partyId, [FromQuery] DateTime? activeDate = null)
+        {
+            var zoos = await _partiesService.GetToPartiesFromPartyByRelationshipPartyRoleTypeCodeAsync(partyId,
+                RelationshipPartyRoleType.BringUp, activeDate);
             return zoos;
         }
     }

@@ -75,6 +75,33 @@ namespace MooDeng.Api.Tests
         }
 
         [Fact]
+        public void AddMooTun()
+        {
+            using (var db = _testDbContextFactory.CreateDbContext())
+            {
+                var mooTun = new Animal { Name = "MooTun" };
+                db.Add(mooTun);
+                var petRoleType = db.PartyRoleTypes.Single(x => x.Code == PartyRoleType.Pet);
+                var mooTunPet = new PartyRole(petRoleType, mooTun);
+                db.Add(mooTunPet);
+
+                var zoo = db.Parties.OfType<Organization>().Single(x => x.Code == "KKOZ");
+                var zooRoleType = db.PartyRoleTypes.Single(x => x.Code == PartyRoleType.Zoo);
+
+                var roleZoo = db.PartyRoles.Single(x => x.Party == zoo && x.PartyRoleType == zooRoleType);
+
+                var bringUpType = db.RelationshipPartyRoleTypes.Single(x => x.Code == RelationshipPartyRoleType.BringUp);
+                var re = new RelationshipPartyRole(bringUpType, roleZoo, mooTunPet);
+                db.Add(re);
+                //db.RemoveRange(db.RelationshipPartyRoles);
+                //db.RemoveRange(db.PartyRoles);
+                //db.RemoveRange(db.Parties);
+
+                db.SaveChanges();
+            }
+        }
+
+        [Fact]
         public async Task GetPetsFromZoo()
         {
             var service = new PartiesService(_testDbContextFactory);

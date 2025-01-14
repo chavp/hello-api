@@ -49,16 +49,34 @@ namespace MooDeng.Parties.Services
         {
             using (var db = _contextFactory.CreateDbContext())
             {
-                var pets = (from p in db.Parties
-                            join prr in db.RelationshipPartyRoles on p.Id equals prr.ToPartyRole.PartyId
+                var qPets = from p in db.Parties
+                            join prr in db.RelationshipPartyRoles
+                                .Include(x => x.RelationshipPartyRoleType)
+                                .Include(x => x.FromPartyRole.PartyRoleType)
+                                .Include(x => x.ToPartyRole.PartyRoleType)
+                            on p.Id equals prr.ToPartyRole.PartyId
                             where prr.RelationshipPartyRoleType.Code == relationshipPartyRoleTypeCode
-                            && prr.EffectiveDateTime <= activeDate
-                            && activeDate <= prr.ExpiryDateTime
                             && prr.FromPartyRole.PartyId == fromPartyId
+                            select new { p, prr };
+
+                if (activeDate.HasValue)
+                {
+                    qPets = qPets.Where(x => x.prr.EffectiveDateTime <= activeDate
+                             && activeDate <= x.prr.ExpiryDateTime);
+                }
+
+                var pets = (from x in qPets
                             select new PartyDto
                             {
-                                PartyId = p.Id,
-                                PartyName = p.Name,
+                                PartyId = x.p.Id,
+                                PartyName = x.p.Name,
+                                PartyRoleTypeCode = x.prr.ToPartyRole.PartyRoleType.Code,
+                                PartyRoleEffectiveDateTime = x.prr.ToPartyRole.EffectiveDateTime,
+                                PartyRoleExpiryDateTime = x.prr.ToPartyRole.ExpiryDateTime,
+
+                                RelationshipPartyRoleTypeCode = x.prr.RelationshipPartyRoleType.Code,
+                                RelationshipPartyRoleEffectiveDateTime = x.prr.EffectiveDateTime,
+                                RelationshipPartyRoleExpiryDateTime = x.prr.ExpiryDateTime,
                             }).ToList();
                 return pets.ToImmutableList();
             }

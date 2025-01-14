@@ -5,28 +5,27 @@
 @using MooDeng.Parties.IServices.Dto
 
 <h3>Organizations</h3>
-
 @if (organizations == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <table class="table">
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th hidden>Id</th>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Role Type Code</th>
-                <th>Role Effective</th>
-                <th>Role Expiry</th>
+                <th scope="col" hidden>Id</th>
+                <th scope="col">Code</th>
+                <th scope="col">Name</th>
+                <th scope="col">Role Type Code</th>
+                <th scope="col">Role Effective</th>
+                <th scope="col">Role Expiry</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var org in organizations)
             {
-                <tr>
+                <tr @onclick="@(() => Selected(org))">
                     <td hidden>@org.PartyId</td>
                     <td>@org.PartyCode</td>
                     <td>@org.PartyName</td>
@@ -39,14 +38,67 @@ else
     </table>
 }
 
+@if (selectedOrg != null)
+{
+    @if (animals != null)
+    {
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" hidden>Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Role Effective</th>
+                    <th scope="col">Role Expiry</th>
+                    <th scope="col">Relationship Role</th>
+                    <th scope="col">Relationship Role Effective</th>
+                    <th scope="col">Relationship Role Expiry</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in animals)
+                {
+                    <tr>
+                        <td hidden>@item.PartyId</td>
+                        <td>@item.PartyName</td>
+                        <td>@item.PartyRoleTypeCode</td>
+                        <td>@item.PartyRoleEffectiveDateTime.ToString("dd/MM/yyyy")</td>
+                        <td>@item.PartyRoleExpiryDateTime.ToString("dd/MM/yyyy")</td>
+                        <td>@item.RelationshipPartyRoleTypeCode</td>
+                        <td>@item.RelationshipPartyRoleEffectiveDateTime.ToString("dd/MM/yyyy")</td>
+                        <td>@item.RelationshipPartyRoleExpiryDateTime.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p><em>Not found</em></p>
+    }
+}
+
 @code {
     private OrganizationDto[]? organizations;
+    private OrganizationDto? selectedOrg = null;
+
+    private PartyDto[]? animals;
 
     protected override async Task OnInitializedAsync()
     {
         var client = ClientFactory.CreateClient("MooDengApi");
 
         organizations = await client.GetFromJsonAsync<OrganizationDto[]>("moodeng/zoos");
+
+    }
+
+    private async Task Selected(OrganizationDto org)
+    {
+        selectedOrg = org;
+
+        var client = ClientFactory.CreateClient("MooDengApi");
+        animals = await client.GetFromJsonAsync<PartyDto[]>(
+            $"moodeng/zoos/{selectedOrg.PartyId}/bring-up");
 
     }
 }
