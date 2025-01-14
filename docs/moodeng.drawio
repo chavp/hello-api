@@ -103,7 +103,10 @@
           <mxGeometry x="-90" y="990" width="115" height="150" as="geometry" />
         </mxCell>
         <mxCell id="XFNst_b_g3L2qF_kiZGw-1" value="Facilities" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="294" y="600" width="120" height="60" as="geometry" />
+          <mxGeometry x="260" y="590" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XFNst_b_g3L2qF_kiZGw-3" value="Locations" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="585" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
