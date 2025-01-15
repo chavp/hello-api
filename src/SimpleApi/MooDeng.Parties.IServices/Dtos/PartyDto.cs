@@ -8,7 +8,7 @@ namespace MooDeng.Parties.IServices.Dtos
 {
     public class PartyDto : PartyInfoDto
     {
-        public Guid? Id { get; set; }
+        public Guid? PartyId { get; set; }
 
         public PartyRoleDto? PartyRole { get; set; }
         public RelationshipPartyDto? RelationshipParty { get; set; }

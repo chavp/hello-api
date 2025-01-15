@@ -9,6 +9,7 @@ namespace MooDeng.Parties.IServices.Dtos
     public class NewPartyInfoDto
     {
         public string? Name { get; set; }
-
+        public TypeInfoDto? PartyRole { get; set; }
+        public RelationshipPartyInfoDto? RelationshipParty { get; set; }
     }
 }

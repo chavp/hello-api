@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MooDeng.Parties.IServices.Dtos
 {
-    public class RelationshipPartyDto : RelationshipPartyInfoDto
+    public class RelationshipPartyInfoDto : TypeInfoDto
     {
-        public Guid? Id { get; set; }
+        public Guid? FromPartyRoleId { get; set; }
     }
 }

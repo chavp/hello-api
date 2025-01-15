@@ -29,9 +29,9 @@ namespace MooDeng.Api.Controllers
         }
 
         [HttpGet("zoos")]
-        public async Task<IImmutableList<OrganizationDto>> Zoos([FromQuery] DateTime? activeDate = null)
+        public async Task<IImmutableList<OrganizationDto>> Zoos([FromQuery] DateTime? roleEffectiveDate = null)
         {
-            var zoos = await _partiesService.GetOrganizationByRoleTypeCodeAsync(PartyRoleType.Zoo, activeDate);
+            var zoos = await _partiesService.GetOrganizationByRoleTypeCodeAsync(PartyRoleType.Zoo, roleEffectiveDate);
             return zoos;
         }
 
@@ -48,17 +48,29 @@ namespace MooDeng.Api.Controllers
         }
 
         [HttpGet("zoos/{partyId}/bring-up")]
-        public async Task<IImmutableList<PartyDto>> ZoosBringUp(Guid partyId, [FromQuery] DateTime? activeDate = null)
+        public async Task<IImmutableList<PartyDto>> ZoosBringUp(Guid partyId, [FromQuery] DateTime? relationshipEffectiveDate = null)
         {
             var zoos = await _partiesService.GetToPartiesFromPartyByRelationshipPartyRoleTypeCodeAsync(partyId,
-                RelationshipPartyType.BringUp, activeDate);
+                RelationshipPartyType.BringUp, relationshipEffectiveDate);
             return zoos;
         }
 
-        [HttpPut("parties/{partyId}")]
+        [HttpPut("pets/{partyId}")]
         public async Task PutParties(Guid partyId, PartyInfoDto data)
         {
             await _partiesService.SavePartyAsync(partyId, data);
+        }
+
+        [HttpPost("pets")]
+        public async Task<PartyDto> PostParties(NewPartyInfoDto data)
+        {
+            return await _partiesService.NewPartyAsync(data);
+        }
+
+        [HttpDelete("parties/{partyId}")]
+        public async Task DeleteParty(Guid partyId)
+        {
+            await _partiesService.DeletePartyAsync(partyId);
         }
     }
 }

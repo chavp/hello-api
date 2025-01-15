@@ -6,16 +6,13 @@
 @using MooDeng.Parties.IServices.Dtos
 @using MooDeng.Blazor.ViewModels
 
-<h3>Organizations: Zoo</h3>
+<h3>Organizations: Zoo <button class="btn btn-primary" @onclick="AddOrg"><Icon Name="IconName.PlusSquare" /></button></h3>
 @if (!organizations.Any())
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <div>
-        <button class="btn btn-primary" @onclick="AddOrg"><Icon Name="IconName.PlusSquare" /></button>
-    </div>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -23,9 +20,10 @@ else
                 <th scope="col">Acts</th>
                 <th scope="col">Code</th>
                 <th scope="col">Name</th>
-                <th scope="col">Role Type Code</th>
+                <th scope="col">Role</th>
                 <th scope="col">Role Effective</th>
                 <th scope="col">Role Expiry</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -34,10 +32,10 @@ else
                 <tr @onclick="@(() => Selected(org))">
                     <td hidden>@org.PartyId</td>
                     <td>
-                        <Button Color="ButtonColor.Primary" @onclick="@org.Edit" hidden=@org.IsEditing><Icon Name="IconName.PencilSquare" /></Button>
+                        <Button Color=ButtonColor.Primary @onclick=@org.Edit hidden=@org.IsEditing><Icon Name=IconName.PencilSquare /></Button>
                         <div class="btn-group" role="group" aria-label="Org Actions" hidden=@(!org.IsEditing)>
                             <button class="btn btn-success" @onclick=@(() => SaveOrg(org))><Icon Name="IconName.Save" /></button>
-                            <button class="btn btn-danger" @onclick=@(() => org.Cancel(organizations))><Icon Name="IconName.XSquare" /></button>
+                            <button class="btn btn-danger" @onclick=@(() => org.Cancel(organizations))><Icon Name=IconName.XSquare /></button>
                         </div>
                     </td>
                     <td><input class="form-control text-uppercase" @bind=@org.Code readonly=@(!org.IsEditing)></td>
@@ -45,6 +43,7 @@ else
                     <td>@org.PartyRole.TypeCode</td>
                     <td>@org.PartyRole.EffectiveDateTime.ToString("dd/MM/yyyy")</td>
                     <td>@org.PartyRole.ExpiryDateTime.ToString("dd/MM/yyyy")</td>
+                    <td><Button Color=ButtonColor.Danger @onclick=@(() => DeleteParty(org.PartyId.Value))><Icon Name="IconName.X" /></Button></td>
                 </tr>
             }
         </tbody>
@@ -53,10 +52,7 @@ else
 
 @if (selectedOrg != null)
 {
-    <h4>Pets bring up by @selectedOrg!.Name</h4>
-    <div>
-        <button class="btn btn-primary" @onclick="AddPet"><Icon Name="IconName.PlusSquare" /></button>
-    </div>
+    <h4>Pets bring up by @selectedOrg!.Name <button class="btn btn-primary" @onclick="AddPet"><Icon Name="IconName.PlusSquare" /></button> </h4>
 }
 
 @if (animals.Any())
@@ -70,16 +66,17 @@ else
                 <th scope="col">Role</th>
                 <th scope="col">Role Effective</th>
                 <th scope="col">Role Expiry</th>
-                <th scope="col">Relationship Role</th>
-                <th scope="col">Relationship Role Effective</th>
-                <th scope="col">Relationship Role Expiry</th>
+                <th scope="col">Relationship</th>
+                <th scope="col">Relationship Effective</th>
+                <th scope="col">Relationship Expiry</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in animals)
             {
                 <tr>
-                    <td hidden>@item.Id</td>
+                    <td hidden>@item.PartyId</td>
                     <td>
                         <Button Color="ButtonColor.Primary" @onclick="@item.Edit" hidden=@(item.IsEditing)><Icon Name="IconName.PencilSquare" /></Button>
                         <div class="btn-group" role="group" aria-label="Org Actions" hidden=@(!item.IsEditing)>
@@ -94,6 +91,7 @@ else
                     <td>@item.RelationshipParty.TypeCode</td>
                     <td>@item.RelationshipParty.EffectiveDateTime.ToString("dd/MM/yyyy")</td>
                     <td>@item.RelationshipParty.ExpiryDateTime.ToString("dd/MM/yyyy")</td>
+                    <td><Button Color=ButtonColor.Danger @onclick=@(() => DeleteParty(item.PartyId.Value))><Icon Name="IconName.X" /></Button></td>
                 </tr>
             }
         </tbody>
@@ -122,7 +120,7 @@ else
     {
         var client = ClientFactory.CreateClient("MooDengApi");
 
-        organizations = await client.GetFromJsonAsync<List<OrganizationViewModel>>("moodeng/zoos");
+        organizations = await client.GetFromJsonAsync<List<OrganizationViewModel>>($"moodeng/zoos");
 
     }
 
@@ -177,6 +175,7 @@ else
             {
                 var data = await resp.Content.ReadFromJsonAsync<OrganizationDto>();
                 org.PartyId = data.PartyId;
+                org.PartyRole.Id = data.PartyRole.Id;
             }
             else
             {
@@ -203,16 +202,32 @@ else
     {
         var client = ClientFactory.CreateClient("MooDengApi");
         HttpResponseMessage resp = null;
-        if (party.Id.HasValue)
+        if (party.PartyId.HasValue)
         {
-            resp = await client.PutAsJsonAsync<PartyInfoDto>($"moodeng/parties/{party.Id}", new PartyInfoDto
+            resp = await client.PutAsJsonAsync<PartyInfoDto>($"moodeng/pets/{party.PartyId}", new PartyInfoDto
             {
                 Name = party.Name,
             });
         }
         else
         {
-
+            resp = await client.PostAsJsonAsync<NewPartyInfoDto>($"moodeng/pets", new NewPartyInfoDto
+                {
+                    Name = party.Name,
+                    PartyRole = party.PartyRole,
+                    RelationshipParty = party.RelationshipParty,
+                });
+            if (resp.IsSuccessStatusCode)
+            {
+                var data = await resp.Content.ReadFromJsonAsync<PartyDto>();
+                party.PartyId = data.PartyId;
+                party.PartyRole.Id = data.PartyRole.Id;
+                party.RelationshipParty.Id = data.RelationshipParty.Id;
+            }
+            else
+            {
+                animals.Remove(party);
+            }
         }
 
         if (!resp.IsSuccessStatusCode)
@@ -231,6 +246,32 @@ else
 
     private async Task AddPet()
     {
-        animals.Add(new PartyViewModel{ IsEditing = true });
+        var newParty = new PartyViewModel { IsEditing = true };
+        newParty.RelationshipParty.FromPartyRoleId = selectedOrg.PartyRole.Id;
+
+        animals.Add(newParty);
+    }
+
+    private async Task DeleteParty(Guid partyId)
+    {
+        var client = ClientFactory.CreateClient("MooDengApi");
+
+        var resp = await client.DeleteAsync($"moodeng/parties/{partyId}");
+        if (resp.IsSuccessStatusCode)
+        {
+            animals.RemoveAll(x => x.PartyId == partyId);
+            organizations.RemoveAll(x => x.PartyId == partyId);
+        }
+        else
+        {
+            var modalOption = new ModalOption
+                {
+                    Title = "Error! Delete Party",
+                    Message = resp.ReasonPhrase,
+                    Type = ModalType.Danger
+                };
+
+            await ModalService.ShowAsync(modalOption);
+        }
     }
 }

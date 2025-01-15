@@ -28,7 +28,7 @@ namespace MooDeng.Blazor.ViewModels
 
         public async Task Cancel(List<PartyViewModel> repo)
         {
-            if (!Id.HasValue)
+            if (!PartyId.HasValue)
             {
                 repo.Remove(this);
             }

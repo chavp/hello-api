@@ -9,7 +9,7 @@ namespace MooDeng.Blazor.ViewModels
     {
         public OrganizationViewModel()
         {
-            PartyRole = new TypeInfoDto
+            PartyRole = new PartyRoleDto
             {
                 TypeCode = "ZOO",
                 EffectiveDateTime = DateTime.Today,
