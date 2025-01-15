@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MooDeng.Parties.IServices;
-using MooDeng.Parties.IServices.Dto;
+using MooDeng.Parties.IServices.Dtos;
 using MooDeng.Parties.Models;
 using System.Collections.Immutable;
 
@@ -35,12 +35,30 @@ namespace MooDeng.Api.Controllers
             return zoos;
         }
 
+        [HttpPut("zoos/{partyId}")]
+        public async Task PutZoos(Guid partyId, OrganizationInfoDto data)
+        {
+            await _partiesService.SaveOrganizationAsync(partyId, data);
+        }
+
+        [HttpPost("zoos")]
+        public async Task<OrganizationDto> PostZoos(NewOrganizationInfoDto data)
+        {
+            return await _partiesService.NewOrganizationAsync(data);
+        }
+
         [HttpGet("zoos/{partyId}/bring-up")]
         public async Task<IImmutableList<PartyDto>> ZoosBringUp(Guid partyId, [FromQuery] DateTime? activeDate = null)
         {
             var zoos = await _partiesService.GetToPartiesFromPartyByRelationshipPartyRoleTypeCodeAsync(partyId,
-                RelationshipPartyRoleType.BringUp, activeDate);
+                RelationshipPartyType.BringUp, activeDate);
             return zoos;
+        }
+
+        [HttpPut("parties/{partyId}")]
+        public async Task PutParties(Guid partyId, PartyInfoDto data)
+        {
+            await _partiesService.SavePartyAsync(partyId, data);
         }
     }
 }

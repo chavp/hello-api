@@ -15,5 +15,6 @@ builder.Services.AddHttpClient("MooDengApi", client =>
 
 // Add services to the container.
 builder.Services.AddHttpClient();
+builder.Services.AddBlazorBootstrap();
 
 await builder.Build().RunAsync();

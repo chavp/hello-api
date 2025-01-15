@@ -147,7 +147,7 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.ToTable("PartyRoleTypes", "parties");
                 });
 
-            modelBuilder.Entity("MooDeng.Parties.Models.RelationshipPartyRole", b =>
+            modelBuilder.Entity("MooDeng.Parties.Models.RelationshipParty", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -194,10 +194,10 @@ namespace MooDeng.Parties.Mappings.Migrations
 
                     b.HasIndex("ToPartyRoleId");
 
-                    b.ToTable("RelationshipPartyRoles", "parties");
+                    b.ToTable("RelationshipParties", "parties");
                 });
 
-            modelBuilder.Entity("MooDeng.Parties.Models.RelationshipPartyRoleType", b =>
+            modelBuilder.Entity("MooDeng.Parties.Models.RelationshipPartyType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -238,7 +238,7 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.HasIndex("Code")
                         .IsUnique();
 
-                    b.ToTable("RelationshipPartyRoleTypes", "parties");
+                    b.ToTable("RelationshipPartyTypes", "parties");
                 });
 
             modelBuilder.Entity("MooDeng.Parties.Models.Animal", b =>
@@ -290,13 +290,13 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.Navigation("PartyRoleType");
                 });
 
-            modelBuilder.Entity("MooDeng.Parties.Models.RelationshipPartyRole", b =>
+            modelBuilder.Entity("MooDeng.Parties.Models.RelationshipParty", b =>
                 {
                     b.HasOne("MooDeng.Parties.Models.PartyRole", "FromPartyRole")
                         .WithMany()
                         .HasForeignKey("FromPartyRoleId");
 
-                    b.HasOne("MooDeng.Parties.Models.RelationshipPartyRoleType", "RelationshipPartyRoleType")
+                    b.HasOne("MooDeng.Parties.Models.RelationshipPartyType", "RelationshipPartyRoleType")
                         .WithMany()
                         .HasForeignKey("RelationshipPartyRoleTypeId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace MooDeng.Parties.Models
 {
-    public class RelationshipPartyRole : EffectiveModel
+    public class RelationshipParty : EffectiveModel
     {
-        protected RelationshipPartyRole() { }
-        public RelationshipPartyRole(RelationshipPartyRoleType relationshipPartyRoleType
+        protected RelationshipParty() { }
+        public RelationshipParty(RelationshipPartyType relationshipPartyRoleType
             , PartyRole fromParty
             , PartyRole toParty)
         {
@@ -25,6 +25,6 @@ namespace MooDeng.Parties.Models
         public PartyRole ToPartyRole { get; set; }
 
         public Guid RelationshipPartyRoleTypeId { get; set; }
-        public RelationshipPartyRoleType RelationshipPartyRoleType { get; set; }
+        public RelationshipPartyType RelationshipPartyRoleType { get; set; }
     }
 }

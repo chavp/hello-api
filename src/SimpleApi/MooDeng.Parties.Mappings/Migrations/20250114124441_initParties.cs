@@ -53,7 +53,7 @@ namespace MooDeng.Parties.Mappings.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RelationshipPartyRoleTypes",
+                name: "RelationshipPartyTypes",
                 schema: "parties",
                 columns: table => new
                 {
@@ -69,7 +69,7 @@ namespace MooDeng.Parties.Mappings.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RelationshipPartyRoleTypes", x => x.Id);
+                    table.PrimaryKey("PK_RelationshipPartyTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -166,7 +166,7 @@ namespace MooDeng.Parties.Mappings.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RelationshipPartyRoles",
+                name: "RelationshipParties",
                 schema: "parties",
                 columns: table => new
                 {
@@ -184,24 +184,24 @@ namespace MooDeng.Parties.Mappings.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RelationshipPartyRoles", x => x.Id);
+                    table.PrimaryKey("PK_RelationshipParties", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RelationshipPartyRoles_PartyRoles_FromPartyRoleId",
+                        name: "FK_RelationshipParties_PartyRoles_FromPartyRoleId",
                         column: x => x.FromPartyRoleId,
                         principalSchema: "parties",
                         principalTable: "PartyRoles",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_RelationshipPartyRoles_PartyRoles_ToPartyRoleId",
+                        name: "FK_RelationshipParties_PartyRoles_ToPartyRoleId",
                         column: x => x.ToPartyRoleId,
                         principalSchema: "parties",
                         principalTable: "PartyRoles",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_RelationshipPartyRoles_RelationshipPartyRoleTypes_RelationshipPartyRoleTypeId",
+                        name: "FK_RelationshipParties_RelationshipPartyTypes_RelationshipPartyRoleTypeId",
                         column: x => x.RelationshipPartyRoleTypeId,
                         principalSchema: "parties",
-                        principalTable: "RelationshipPartyRoleTypes",
+                        principalTable: "RelationshipPartyTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -234,27 +234,27 @@ namespace MooDeng.Parties.Mappings.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_RelationshipPartyRoles_FromPartyRoleId",
+                name: "IX_RelationshipParties_FromPartyRoleId",
                 schema: "parties",
-                table: "RelationshipPartyRoles",
+                table: "RelationshipParties",
                 column: "FromPartyRoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RelationshipPartyRoles_RelationshipPartyRoleTypeId",
+                name: "IX_RelationshipParties_RelationshipPartyRoleTypeId",
                 schema: "parties",
-                table: "RelationshipPartyRoles",
+                table: "RelationshipParties",
                 column: "RelationshipPartyRoleTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RelationshipPartyRoles_ToPartyRoleId",
+                name: "IX_RelationshipParties_ToPartyRoleId",
                 schema: "parties",
-                table: "RelationshipPartyRoles",
+                table: "RelationshipParties",
                 column: "ToPartyRoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RelationshipPartyRoleTypes_Code",
+                name: "IX_RelationshipPartyTypes_Code",
                 schema: "parties",
-                table: "RelationshipPartyRoleTypes",
+                table: "RelationshipPartyTypes",
                 column: "Code",
                 unique: true);
         }
@@ -275,7 +275,7 @@ namespace MooDeng.Parties.Mappings.Migrations
                 schema: "parties");
 
             migrationBuilder.DropTable(
-                name: "RelationshipPartyRoles",
+                name: "RelationshipParties",
                 schema: "parties");
 
             migrationBuilder.DropTable(
@@ -283,7 +283,7 @@ namespace MooDeng.Parties.Mappings.Migrations
                 schema: "parties");
 
             migrationBuilder.DropTable(
-                name: "RelationshipPartyRoleTypes",
+                name: "RelationshipPartyTypes",
                 schema: "parties");
 
             migrationBuilder.DropTable(

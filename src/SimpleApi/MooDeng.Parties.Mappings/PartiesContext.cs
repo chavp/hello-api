@@ -9,8 +9,8 @@ namespace MooDeng.Parties.Mappings
         public DbSet<Party> Parties { get; set; }
         public DbSet<PartyRole> PartyRoles { get; set; }
         public DbSet<PartyRoleType> PartyRoleTypes { get; set; }
-        public DbSet<RelationshipPartyRole> RelationshipPartyRoles { get; set; }
-        public DbSet<RelationshipPartyRoleType> RelationshipPartyRoleTypes { get; set; }
+        public DbSet<RelationshipParty> RelationshipParties { get; set; }
+        public DbSet<RelationshipPartyType> RelationshipPartyTypes { get; set; }
         public PartiesContext(DbContextOptions<PartiesContext> options)
             : base(options)
         {
@@ -32,7 +32,7 @@ namespace MooDeng.Parties.Mappings
             .HasConversion(ValueConverters.UpperConverter!);
 
             modelBuilder
-            .Entity<RelationshipPartyRoleType>()
+            .Entity<RelationshipPartyType>()
             .Property(e => e.Code)
             .HasConversion(ValueConverters.UpperConverter!);
 

@@ -21,10 +21,11 @@ builder.Services.AddDbContextFactory<PartiesContext>(
 builder.Services.AddCors(policy => {
 
     policy.AddPolicy("Policy_Name", builder =>
-      builder.WithOrigins("https://*:7152/")
+      builder.WithOrigins("https://*:7152")
         .SetIsOriginAllowedToAllowWildcardSubdomains()
         .AllowAnyOrigin()
-
+        .AllowAnyHeader()
+        .AllowAnyMethod()
 
  );
 });

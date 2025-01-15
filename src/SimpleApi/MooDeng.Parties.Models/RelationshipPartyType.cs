@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MooDeng.Parties.Models
 {
-    public class RelationshipPartyRoleType : TypeModel
+    public class RelationshipPartyType : TypeModel
     {
         public const string BringUp = "BRING_UP";
-        protected RelationshipPartyRoleType() { }
+        protected RelationshipPartyType() { }
 
-        public RelationshipPartyRoleType(string code)
+        public RelationshipPartyType(string code)
         {
             Code = code;
         }

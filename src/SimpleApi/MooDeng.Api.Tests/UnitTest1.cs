@@ -36,7 +36,7 @@ namespace MooDeng.Api.Tests
                 var zoo = new PartyRoleType(PartyRoleType.Zoo);
                 db.Add(zoo);
 
-                var bringUp = new RelationshipPartyRoleType(RelationshipPartyRoleType.BringUp);
+                var bringUp = new RelationshipPartyType(RelationshipPartyType.BringUp);
                 db.Add(bringUp);
 
                 db.SaveChanges();
@@ -63,8 +63,8 @@ namespace MooDeng.Api.Tests
                 var mooDengZoo = new PartyRole(zooRoleType, zoo);
                 db.Add(mooDengZoo);
 
-                var bringUpType = db.RelationshipPartyRoleTypes.Single(x => x.Code == RelationshipPartyRoleType.BringUp);
-                var re = new RelationshipPartyRole(bringUpType, mooDengZoo, mooDengPet);
+                var bringUpType = db.RelationshipPartyTypes.Single(x => x.Code == RelationshipPartyType.BringUp);
+                var re = new RelationshipParty(bringUpType, mooDengZoo, mooDengPet);
                 db.Add(re);
                 //db.RemoveRange(db.RelationshipPartyRoles);
                 //db.RemoveRange(db.PartyRoles);
@@ -90,8 +90,8 @@ namespace MooDeng.Api.Tests
 
                 var roleZoo = db.PartyRoles.Single(x => x.Party == zoo && x.PartyRoleType == zooRoleType);
 
-                var bringUpType = db.RelationshipPartyRoleTypes.Single(x => x.Code == RelationshipPartyRoleType.BringUp);
-                var re = new RelationshipPartyRole(bringUpType, roleZoo, mooTunPet);
+                var bringUpType = db.RelationshipPartyTypes.Single(x => x.Code == RelationshipPartyType.BringUp);
+                var re = new RelationshipParty(bringUpType, roleZoo, mooTunPet);
                 db.Add(re);
                 //db.RemoveRange(db.RelationshipPartyRoles);
                 //db.RemoveRange(db.PartyRoles);
@@ -107,10 +107,10 @@ namespace MooDeng.Api.Tests
             var service = new PartiesService(_testDbContextFactory);
             var zoos = await service.GetOrganizationByRoleTypeCodeAsync(PartyRoleType.Zoo, DateTime.Today);
 
-            var zoo = zoos.Single(x => x.PartyCode == "KKOZ");
+            var zoo = zoos.Single(x => x.Code == "KKOZ");
 
-            var animals = await service.GetToPartiesFromPartyByRelationshipPartyRoleTypeCodeAsync(zoo.PartyId,
-                RelationshipPartyRoleType.BringUp, DateTime.Today);
+            var animals = await service.GetToPartiesFromPartyByRelationshipPartyRoleTypeCodeAsync(zoo.PartyId.Value,
+                RelationshipPartyType.BringUp, DateTime.Today);
         }
 
         [Fact]
@@ -120,12 +120,12 @@ namespace MooDeng.Api.Tests
             var service = new PartiesService(_testDbContextFactory);
             var zoos = await service.GetOrganizationByRoleTypeCodeAsync(PartyRoleType.Zoo, DateTime.Today);
 
-            var zoo = zoos.Single(x => x.PartyCode == "KKOZ");
+            var zoo = zoos.Single(x => x.Code == "KKOZ");
 
-            await service.SaveOrganizationAsync(zoo.PartyId, new Parties.IServices.Dto.OrganizationDataDto
+            await service.SaveOrganizationAsync(zoo.PartyId.Value, new Parties.IServices.Dtos.OrganizationDto
             {
-                PartyCode = zoo.PartyCode,
-                PartyName = "Khao Kheow Open Zoo",
+                Code = zoo.Code,
+                Name = "Khao Kheow Open Zoo",
             });
         }
 

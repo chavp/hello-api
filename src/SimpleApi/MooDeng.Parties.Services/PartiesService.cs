@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MooDeng.Parties.IServices;
-using MooDeng.Parties.IServices.Dto;
+using MooDeng.Parties.IServices.Dtos;
 using MooDeng.Parties.Mappings;
 using MooDeng.Parties.Models;
 using System.Collections.Immutable;
@@ -34,11 +34,14 @@ namespace MooDeng.Parties.Services
                             select new OrganizationDto
                             {
                                 PartyId = x.pr.PartyId,
-                                PartyCode = x.z.Code,
-                                PartyName = x.z.Name,
-                                PartyRoleEffectiveDateTime = x.pr.EffectiveDateTime,
-                                PartyRoleExpiryDateTime = x.pr.ExpiryDateTime,
-                                PartyRoleTypeCode = x.pr.PartyRoleType.Code,
+                                Code = x.z.Code,
+                                Name = x.z.Name,
+                                PartyRole = new TypeInfoDto
+                                {
+                                    EffectiveDateTime = x.pr.EffectiveDateTime,
+                                    ExpiryDateTime = x.pr.ExpiryDateTime,
+                                    TypeCode = x.pr.PartyRoleType.Code,
+                                }
                             }).ToList();
 
                 return orgs.ToImmutableList();
@@ -50,7 +53,7 @@ namespace MooDeng.Parties.Services
             using (var db = _contextFactory.CreateDbContext())
             {
                 var qPets = from p in db.Parties
-                            join prr in db.RelationshipPartyRoles
+                            join prr in db.RelationshipParties
                                 .Include(x => x.RelationshipPartyRoleType)
                                 .Include(x => x.FromPartyRole.PartyRoleType)
                                 .Include(x => x.ToPartyRole.PartyRoleType)
@@ -68,31 +71,80 @@ namespace MooDeng.Parties.Services
                 var pets = (from x in qPets
                             select new PartyDto
                             {
-                                PartyId = x.p.Id,
-                                PartyName = x.p.Name,
-                                PartyRoleTypeCode = x.prr.ToPartyRole.PartyRoleType.Code,
-                                PartyRoleEffectiveDateTime = x.prr.ToPartyRole.EffectiveDateTime,
-                                PartyRoleExpiryDateTime = x.prr.ToPartyRole.ExpiryDateTime,
+                                Id = x.p.Id,
+                                Name = x.p.Name,
+                                PartyRole = new PartyRoleDto
+                                {
+                                    Id = x.prr.ToPartyRole.Id,
+                                    TypeCode = x.prr.ToPartyRole.PartyRoleType.Code,
+                                    EffectiveDateTime = x.prr.ToPartyRole.EffectiveDateTime,
+                                    ExpiryDateTime = x.prr.ToPartyRole.ExpiryDateTime,
+                                },
 
-                                RelationshipPartyRoleTypeCode = x.prr.RelationshipPartyRoleType.Code,
-                                RelationshipPartyRoleEffectiveDateTime = x.prr.EffectiveDateTime,
-                                RelationshipPartyRoleExpiryDateTime = x.prr.ExpiryDateTime,
+                                RelationshipParty = new RelationshipPartyDto
+                                {
+                                    Id = x.prr.Id,
+                                    TypeCode = x.prr.RelationshipPartyRoleType.Code,
+                                    EffectiveDateTime = x.prr.EffectiveDateTime,
+                                    ExpiryDateTime = x.prr.ExpiryDateTime,
+                                }
                             }).ToList();
                 return pets.ToImmutableList();
             }
         }
 
-        public async Task SaveOrganizationAsync(Guid partyId, OrganizationDataDto organizationData)
+        public async Task<OrganizationDto> NewOrganizationAsync(NewOrganizationInfoDto newOrganization)
         {
-            using (var db = _contextFactory.CreateDbContext())
-            {
-                var org = await db.Parties.OfType<Organization>().SingleAsync(x => x.Id == partyId);
-                org.Code = organizationData.PartyCode;
-                org.Name = organizationData.PartyName;
-                org.Update();
+            var db = _contextFactory.CreateDbContext();
 
-                db.SaveChanges();
-            }
+            var org = new Organization(newOrganization.Organization.Code) { Name = newOrganization.Organization.Name };
+            db.Add(org);
+
+            var roleType = db.PartyRoleTypes.Single(x => x.Code == newOrganization.Role.TypeCode);
+            var partyRole = new PartyRole(roleType, org) 
+            { 
+                EffectiveDateTime = newOrganization.Role.EffectiveDateTime,
+                ExpiryDateTime = newOrganization.Role.ExpiryDateTime,
+            };
+            db.Add(partyRole);
+
+            await db.SaveChangesAsync();
+
+            return new OrganizationDto
+            {
+                PartyId = org.Id,
+                Code = org.Code,
+                Name = org.Name,
+                PartyRole = new TypeInfoDto
+                {
+                    EffectiveDateTime = partyRole.EffectiveDateTime,
+                    ExpiryDateTime = partyRole.ExpiryDateTime,
+                    TypeCode = partyRole.PartyRoleType.Code,
+                }
+            };
+        }
+
+        public async Task SaveOrganizationAsync(Guid partyId, OrganizationInfoDto organization)
+        {
+            var db = _contextFactory.CreateDbContext();
+
+            var org = await db.Parties.OfType<Organization>().SingleAsync(x => x.Id == partyId);
+            org.Code = organization.Code;
+            org.Name = organization.Name;
+            org.Update();
+
+            db.SaveChanges();
+        }
+
+        public async Task SavePartyAsync(Guid partyId, PartyInfoDto partyInfoDto)
+        {
+            var db = _contextFactory.CreateDbContext();
+
+            var target = await db.Parties.SingleAsync(x => x.Id == partyId);
+            target.Name = partyInfoDto.Name;
+            target.Update();
+
+            db.SaveChanges();
         }
     }
 }
