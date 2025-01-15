@@ -106,7 +106,7 @@
           <mxGeometry x="500" y="590" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="-QzqaArA1PasSo_Wp-jl-2" value="FacilityRoleTypes" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="280" y="460" width="120" height="60" as="geometry" />
+          <mxGeometry x="280" y="450" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="-QzqaArA1PasSo_Wp-jl-3" value="FacilityRoles" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="280" y="590" width="120" height="60" as="geometry" />
