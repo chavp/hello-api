@@ -14,7 +14,7 @@ namespace MooDeng.Api.Tests
     {
         protected readonly IConfigurationRoot _config = null;
         protected readonly DbContextOptionsBuilder<PartiesContext> _partiesBuilder = null;
-        protected readonly TestDbContextFactory _testDbContextFactory;
+        protected readonly PartiesDbContextFactory _testDbContextFactory;
 
         public FacilitiesTests()
         {
@@ -25,7 +25,7 @@ namespace MooDeng.Api.Tests
             _partiesBuilder = new DbContextOptionsBuilder<PartiesContext>()
                 .UseSqlServer(_config.GetConnectionString("parties_db"));
 
-            _testDbContextFactory = new TestDbContextFactory(_config.GetConnectionString("parties_db"));
+            _testDbContextFactory = new PartiesDbContextFactory(_config.GetConnectionString("parties_db"));
         }
 
         [Fact]

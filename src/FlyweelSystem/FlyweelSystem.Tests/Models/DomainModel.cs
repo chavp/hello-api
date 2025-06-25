@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MooDeng.Parties.Models
+namespace FlyweelSystem.Tests.Models
 {
     public abstract class DomainModel
     {

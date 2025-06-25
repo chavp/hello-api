@@ -12,8 +12,8 @@ using MooDeng.Parties.Mappings;
 namespace MooDeng.Parties.Mappings.Migrations
 {
     [DbContext(typeof(PartiesContext))]
-    [Migration("20250114124441_initParties")]
-    partial class initParties
+    [Migration("20250625072136_initMooDengDb")]
+    partial class initMooDengDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,22 +26,208 @@ namespace MooDeng.Parties.Mappings.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MooDeng.Parties.Models.Party", b =>
+            modelBuilder.Entity("MooDeng.Parties.Models.Facility", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<DateTime?>("LastUpdate")
+                    b.Property<Guid>("FacilityTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("LastUpdateBy")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<decimal>("Revision")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FacilityTypeId");
+
+                    b.HasIndex("Code", "FacilityTypeId")
+                        .IsUnique();
+
+                    b.ToTable("Facilities", "parties");
+
+                    b.UseTptMappingStrategy();
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.FacilityRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTime>("EffectiveDateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpiryDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("FacilityRoleTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ForPartyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("LastUpdateBy")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<Guid>("OfFacilityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Revision")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FacilityRoleTypeId");
+
+                    b.HasIndex("ForPartyId");
+
+                    b.HasIndex("OfFacilityId");
+
+                    b.ToTable("FacilityRoles", "parties");
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.FacilityRoleType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("LastUpdateBy")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<decimal>("Revision")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("FacilityRoleTypes", "parties");
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.FacilityType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("LastUpdateBy")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<decimal>("Revision")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("FacilityTypes", "parties");
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.Party", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
@@ -67,8 +253,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -81,8 +267,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.Property<DateTime>("ExpiryDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("LastUpdate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
@@ -117,8 +303,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -128,8 +314,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastUpdate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
@@ -156,8 +342,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -173,8 +359,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.Property<Guid?>("FromPartyRoleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
@@ -211,8 +397,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -222,8 +408,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastUpdate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
@@ -242,6 +428,17 @@ namespace MooDeng.Parties.Mappings.Migrations
                         .IsUnique();
 
                     b.ToTable("RelationshipPartyTypes", "parties");
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.Land", b =>
+                {
+                    b.HasBaseType("MooDeng.Parties.Models.Facility");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.ToTable("Lands", "parties");
                 });
 
             modelBuilder.Entity("MooDeng.Parties.Models.Animal", b =>
@@ -272,6 +469,44 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.HasBaseType("MooDeng.Parties.Models.Party");
 
                     b.ToTable("People", "parties");
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.Facility", b =>
+                {
+                    b.HasOne("MooDeng.Parties.Models.FacilityType", "FacilityType")
+                        .WithMany()
+                        .HasForeignKey("FacilityTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FacilityType");
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.FacilityRole", b =>
+                {
+                    b.HasOne("MooDeng.Parties.Models.FacilityRoleType", "FacilityRoleType")
+                        .WithMany()
+                        .HasForeignKey("FacilityRoleTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MooDeng.Parties.Models.Party", "ForParty")
+                        .WithMany()
+                        .HasForeignKey("ForPartyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MooDeng.Parties.Models.Facility", "OfFacility")
+                        .WithMany()
+                        .HasForeignKey("OfFacilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FacilityRoleType");
+
+                    b.Navigation("ForParty");
+
+                    b.Navigation("OfFacility");
                 });
 
             modelBuilder.Entity("MooDeng.Parties.Models.PartyRole", b =>
@@ -314,6 +549,15 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.Navigation("RelationshipPartyRoleType");
 
                     b.Navigation("ToPartyRole");
+                });
+
+            modelBuilder.Entity("MooDeng.Parties.Models.Land", b =>
+                {
+                    b.HasOne("MooDeng.Parties.Models.Facility", null)
+                        .WithOne()
+                        .HasForeignKey("MooDeng.Parties.Models.Land", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MooDeng.Parties.Models.Animal", b =>

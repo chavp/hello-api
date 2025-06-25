@@ -34,8 +34,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -45,8 +45,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.Property<Guid>("FacilityTypeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
@@ -77,8 +77,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -97,8 +97,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.Property<Guid>("ForPartyId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
@@ -132,8 +132,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -143,8 +143,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastUpdate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
@@ -176,8 +176,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -187,8 +187,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastUpdate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
@@ -215,16 +215,16 @@ namespace MooDeng.Parties.Mappings.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<DateTime?>("LastUpdate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
@@ -250,8 +250,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -264,8 +264,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.Property<DateTime>("ExpiryDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("LastUpdate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
@@ -300,8 +300,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -311,8 +311,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastUpdate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
@@ -339,8 +339,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -356,8 +356,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.Property<Guid?>("FromPartyRoleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
@@ -394,8 +394,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -405,8 +405,8 @@ namespace MooDeng.Parties.Mappings.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastUpdate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
