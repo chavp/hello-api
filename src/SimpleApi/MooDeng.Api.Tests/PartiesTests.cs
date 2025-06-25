@@ -1,19 +1,20 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MooDeng.Parties.IServices.Values;
 using MooDeng.Parties.Mappings;
 using MooDeng.Parties.Models;
 using MooDeng.Parties.Services;
 
 namespace MooDeng.Api.Tests
 {
-    public class UnitTest1
+    public class PartiesTests
     {
         protected readonly IConfigurationRoot _config = null;
         protected readonly DbContextOptionsBuilder<PartiesContext> _partiesBuilder = null;
         protected readonly TestDbContextFactory _testDbContextFactory;
 
-        public UnitTest1()
+        public PartiesTests()
         {
             _config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
@@ -107,7 +108,7 @@ namespace MooDeng.Api.Tests
             var service = new PartiesService(_testDbContextFactory);
             var zoos = await service.GetOrganizationByRoleTypeCodeAsync(PartyRoleType.Zoo, DateTime.Today);
 
-            var zoo = zoos.Single(x => x.Code == "KKOZ");
+            var zoo = zoos.Single(x => x.Info.Code == "KKOZ");
 
             var animals = await service.GetToPartiesFromPartyByRelationshipPartyRoleTypeCodeAsync(zoo.PartyId.Value,
                 RelationshipPartyType.BringUp, DateTime.Today);
@@ -120,12 +121,13 @@ namespace MooDeng.Api.Tests
             var service = new PartiesService(_testDbContextFactory);
             var zoos = await service.GetOrganizationByRoleTypeCodeAsync(PartyRoleType.Zoo, DateTime.Today);
 
-            var zoo = zoos.Single(x => x.Code == "KKOZ");
+            var zoo = zoos.Single(x => x.Info.Code == "KKOZ");
 
-            await service.SaveOrganizationAsync(zoo.PartyId.Value, new Parties.IServices.Dtos.OrganizationDto
+            await service.SaveOrganizationAsync(zoo.PartyId.Value, new OrganizationValue
             {
-                Code = zoo.Code,
+                Code = zoo.Info.Code,
                 Name = "Khao Kheow Open Zoo",
+
             });
         }
 

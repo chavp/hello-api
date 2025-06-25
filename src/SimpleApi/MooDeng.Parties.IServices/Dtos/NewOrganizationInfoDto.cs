@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MooDeng.Parties.IServices.Values;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace MooDeng.Parties.IServices.Dtos
 {
     public class NewOrganizationInfoDto
     {
-        public OrganizationInfoDto Organization { get; set; }
+        public OrganizationValue? Info { get; set; }
         public TypeInfoDto Role { get; set; }
     }
 }

@@ -11,6 +11,13 @@ namespace MooDeng.Parties.Mappings
         public DbSet<PartyRoleType> PartyRoleTypes { get; set; }
         public DbSet<RelationshipParty> RelationshipParties { get; set; }
         public DbSet<RelationshipPartyType> RelationshipPartyTypes { get; set; }
+
+        public DbSet<Facility> Facilities { get; set; }
+        public DbSet<FacilityType> FacilityTypes { get; set; }
+
+        public DbSet<FacilityRole> FacilityRoles { get; set; }
+        public DbSet<FacilityRoleType> FacilityRoleTypes { get; set; }
+
         public PartiesContext(DbContextOptions<PartiesContext> options)
             : base(options)
         {
@@ -26,20 +33,32 @@ namespace MooDeng.Parties.Mappings
             modelBuilder.Entity<Animal>();
             modelBuilder.Entity<Organization>();
 
-            modelBuilder
-            .Entity<PartyRoleType>()
-            .Property(e => e.Code)
-            .HasConversion(ValueConverters.UpperConverter!);
+            modelBuilder.Entity<Land>();
 
             modelBuilder
-            .Entity<RelationshipPartyType>()
-            .Property(e => e.Code)
-            .HasConversion(ValueConverters.UpperConverter!);
+                .Entity<PartyRoleType>()
+                .Property(e => e.Code)
+                .HasConversion(ValueConverters.UpperConverter!);
 
             modelBuilder
-           .Entity<Organization>()
-           .Property(e => e.Code)
-           .HasConversion(ValueConverters.UpperConverter!);
+                .Entity<RelationshipPartyType>()
+                .Property(e => e.Code)
+                .HasConversion(ValueConverters.UpperConverter!);
+
+            modelBuilder
+               .Entity<Organization>()
+               .Property(e => e.Code)
+               .HasConversion(ValueConverters.UpperConverter!);
+
+            modelBuilder
+               .Entity<FacilityType>()
+               .Property(e => e.Code)
+               .HasConversion(ValueConverters.UpperConverter!);
+
+            modelBuilder
+               .Entity<FacilityRoleType>()
+               .Property(e => e.Code)
+               .HasConversion(ValueConverters.UpperConverter!);
         }
     }
 }

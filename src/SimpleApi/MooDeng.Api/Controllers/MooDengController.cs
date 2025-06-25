@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MooDeng.Parties.IServices;
 using MooDeng.Parties.IServices.Dtos;
+using MooDeng.Parties.IServices.Values;
 using MooDeng.Parties.Models;
 using System.Collections.Immutable;
 
@@ -36,7 +37,7 @@ namespace MooDeng.Api.Controllers
         }
 
         [HttpPut("zoos/{partyId}")]
-        public async Task PutZoos(Guid partyId, OrganizationInfoDto data)
+        public async Task PutZoos(Guid partyId, OrganizationValue data)
         {
             await _partiesService.SaveOrganizationAsync(partyId, data);
         }

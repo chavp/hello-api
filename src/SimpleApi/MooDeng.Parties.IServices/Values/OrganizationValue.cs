@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MooDeng.Parties.IServices.Dtos
+namespace MooDeng.Parties.IServices.Values
 {
-    public class OrganizationInfoDto
+    public class OrganizationValue
     {
         public string Code { get; set; }
         public string? Name { get; set; }
