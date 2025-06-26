@@ -1,17 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace FlyweelSystem.Tests.Migrations
 {
     /// <inheritdoc />
-    public partial class indexCode : Migration
+    public partial class addPartyTypeId : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropIndex(
-                name: "IX_Elements_Code",
+            migrationBuilder.DropColumn(
+                name: "PartyId",
                 schema: "flywheels",
                 table: "Elements");
         }
@@ -19,12 +20,12 @@ namespace FlyweelSystem.Tests.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateIndex(
-                name: "IX_Elements_Code",
+            migrationBuilder.AddColumn<Guid>(
+                name: "PartyId",
                 schema: "flywheels",
                 table: "Elements",
-                column: "Code",
-                unique: true);
+                type: "uniqueidentifier",
+                nullable: true);
         }
     }
 }

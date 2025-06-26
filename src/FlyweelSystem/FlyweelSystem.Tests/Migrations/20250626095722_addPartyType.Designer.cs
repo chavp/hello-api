@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlyweelSystem.Tests.Migrations
 {
     [DbContext(typeof(FlywheelsContext))]
-    [Migration("20250625075931_elemRelationships")]
-    partial class elemRelationships
+    [Migration("20250626095722_addPartyType")]
+    partial class addPartyType
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,16 +26,16 @@ namespace FlyweelSystem.Tests.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FlyweelSystem.Tests.Models.Element", b =>
+            modelBuilder.Entity("FlyweelSystem.Tests.Models.Boundary", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Code")
+                    b.Property<string>("Alias")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(600)
+                        .HasColumnType("nvarchar(600)");
 
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("datetimeoffset");
@@ -49,11 +49,9 @@ namespace FlyweelSystem.Tests.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
-                    b.Property<Guid>("ElementTypeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<string>("Label")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<DateTimeOffset?>("LastUpdate")
                         .HasColumnType("datetimeoffset");
@@ -62,18 +60,74 @@ namespace FlyweelSystem.Tests.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
                     b.Property<decimal>("Revision")
                         .HasColumnType("decimal(20,0)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ElementTypeId");
+                    b.ToTable("Boundaries", "flywheels");
+                });
 
-                    b.HasIndex("Code", "ElementTypeId")
+            modelBuilder.Entity("FlyweelSystem.Tests.Models.Element", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Alias")
+                        .IsRequired()
+                        .HasMaxLength(600)
+                        .HasColumnType("nvarchar(600)");
+
+                    b.Property<Guid>("BoundaryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ContextTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("Label")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("LastUpdateBy")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<Guid?>("PartyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("PartyTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Revision")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.Property<string>("Technical")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContextTypeId");
+
+                    b.HasIndex("PartyTypeId");
+
+                    b.HasIndex("BoundaryId", "Alias", "ContextTypeId")
                         .IsUnique();
 
                     b.ToTable("Elements", "flywheels");
@@ -84,11 +138,6 @@ namespace FlyweelSystem.Tests.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
 
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("datetimeoffset");
@@ -105,11 +154,12 @@ namespace FlyweelSystem.Tests.Migrations
                     b.Property<Guid>("ElementRelationshipTypeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("FromElementId")
+                    b.Property<Guid?>("FromElementId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<string>("Label")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<DateTimeOffset?>("LastUpdate")
                         .HasColumnType("datetimeoffset");
@@ -118,14 +168,14 @@ namespace FlyweelSystem.Tests.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
                     b.Property<decimal>("Revision")
                         .HasColumnType("decimal(20,0)");
 
-                    b.Property<Guid>("ToElementId")
+                    b.Property<string>("Technical")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<Guid?>("ToElementId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -135,7 +185,8 @@ namespace FlyweelSystem.Tests.Migrations
                     b.HasIndex("ToElementId");
 
                     b.HasIndex("FromElementId", "ElementRelationshipTypeId", "ToElementId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[FromElementId] IS NOT NULL AND [ToElementId] IS NOT NULL");
 
                     b.ToTable("ElementRelationships", "flywheels");
                 });
@@ -159,10 +210,6 @@ namespace FlyweelSystem.Tests.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -172,10 +219,6 @@ namespace FlyweelSystem.Tests.Migrations
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<decimal>("Revision")
                         .HasColumnType("decimal(20,0)");
@@ -207,10 +250,6 @@ namespace FlyweelSystem.Tests.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -220,10 +259,6 @@ namespace FlyweelSystem.Tests.Migrations
                     b.Property<string>("LastUpdateBy")
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<decimal>("Revision")
                         .HasColumnType("decimal(20,0)");
@@ -236,15 +271,69 @@ namespace FlyweelSystem.Tests.Migrations
                     b.ToTable("ElementTypes", "flywheels");
                 });
 
+            modelBuilder.Entity("FlyweelSystem.Tests.Models.PartyType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LastUpdate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("LastUpdateBy")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<decimal>("Revision")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("PartyTypes", "flywheels");
+                });
+
             modelBuilder.Entity("FlyweelSystem.Tests.Models.Element", b =>
                 {
-                    b.HasOne("FlyweelSystem.Tests.Models.ElementType", "ElementType")
+                    b.HasOne("FlyweelSystem.Tests.Models.Boundary", "Boundary")
                         .WithMany()
-                        .HasForeignKey("ElementTypeId")
+                        .HasForeignKey("BoundaryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ElementType");
+                    b.HasOne("FlyweelSystem.Tests.Models.ElementType", "ContextType")
+                        .WithMany()
+                        .HasForeignKey("ContextTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FlyweelSystem.Tests.Models.PartyType", "PartyType")
+                        .WithMany()
+                        .HasForeignKey("PartyTypeId");
+
+                    b.Navigation("Boundary");
+
+                    b.Navigation("ContextType");
+
+                    b.Navigation("PartyType");
                 });
 
             modelBuilder.Entity("FlyweelSystem.Tests.Models.ElementRelationship", b =>
@@ -257,15 +346,11 @@ namespace FlyweelSystem.Tests.Migrations
 
                     b.HasOne("FlyweelSystem.Tests.Models.Element", "FromElement")
                         .WithMany()
-                        .HasForeignKey("FromElementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FromElementId");
 
                     b.HasOne("FlyweelSystem.Tests.Models.Element", "ToElement")
                         .WithMany()
-                        .HasForeignKey("ToElementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ToElementId");
 
                     b.Navigation("ElementRelationshipType");
 

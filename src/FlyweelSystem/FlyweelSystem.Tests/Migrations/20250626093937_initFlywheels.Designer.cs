@@ -4,6 +4,7 @@ using FlyweelSystem.Tests.Mappings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlyweelSystem.Tests.Migrations
 {
     [DbContext(typeof(FlywheelsContext))]
-    partial class FlywheelsContextModelSnapshot : ModelSnapshot
+    [Migration("20250626093937_initFlywheels")]
+    partial class initFlywheels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,9 +108,6 @@ namespace FlyweelSystem.Tests.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<Guid?>("PartyTypeId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<decimal>("Revision")
                         .HasColumnType("decimal(20,0)");
 
@@ -118,8 +118,6 @@ namespace FlyweelSystem.Tests.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ContextTypeId");
-
-                    b.HasIndex("PartyTypeId");
 
                     b.HasIndex("BoundaryId", "Alias", "ContextTypeId")
                         .IsUnique();
@@ -265,46 +263,6 @@ namespace FlyweelSystem.Tests.Migrations
                     b.ToTable("ElementTypes", "flywheels");
                 });
 
-            modelBuilder.Entity("FlyweelSystem.Tests.Models.PartyType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LastUpdate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("LastUpdateBy")
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<decimal>("Revision")
-                        .HasColumnType("decimal(20,0)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
-
-                    b.ToTable("PartyTypes", "flywheels");
-                });
-
             modelBuilder.Entity("FlyweelSystem.Tests.Models.Element", b =>
                 {
                     b.HasOne("FlyweelSystem.Tests.Models.Boundary", "Boundary")
@@ -319,15 +277,9 @@ namespace FlyweelSystem.Tests.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FlyweelSystem.Tests.Models.PartyType", "PartyType")
-                        .WithMany()
-                        .HasForeignKey("PartyTypeId");
-
                     b.Navigation("Boundary");
 
                     b.Navigation("ContextType");
-
-                    b.Navigation("PartyType");
                 });
 
             modelBuilder.Entity("FlyweelSystem.Tests.Models.ElementRelationship", b =>

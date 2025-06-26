@@ -13,12 +13,6 @@ namespace FlyweelSystem.Tests.Models
         [Required, StringLength(300)]
         public string? Code { get; set; }
 
-        [StringLength(1000)]
-        public string? Name { get; set; }
-
-        [StringLength(2000)]
-        public string? Description { get; set; }
-
         public bool IsActive { get; set; } = true;
     }
 }

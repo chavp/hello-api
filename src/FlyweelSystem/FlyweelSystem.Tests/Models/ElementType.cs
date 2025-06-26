@@ -11,8 +11,8 @@ namespace FlyweelSystem.Tests.Models
     [Index(nameof(Code), IsUnique = true)]
     public class ElementType : TypeModel
     {
-        public const string System = "SYSTEM";
         public const string Context = "CONTEXT";
+        public const string System = "SYSTEM";
         public const string Container = "CONTAINER";
         public const string Component = "COMPONENT";
 
