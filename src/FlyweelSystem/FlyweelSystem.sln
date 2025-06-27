@@ -1,9 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyweelSystem.Tests", "FlyweelSystem.Tests\FlyweelSystem.Tests.csproj", "{54CCBFAC-EF7D-4E43-8285-A3B78B13C15E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flywheel.Models", "Flywheel.Models\Flywheel.Models.csproj", "{91A8450F-B929-497F-BD82-C1034A575504}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flywheel.Mappings", "Flywheel.Mappings\Flywheel.Mappings.csproj", "{E156D248-AEE5-4741-93BF-31C974D06F2D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{881196DE-04B5-47A4-8F7D-3481A7EC6DAD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "apps", "apps", "{32B70C08-A2CB-4C42-928D-DD4BB9340118}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{DD5AD0DC-EECA-47D5-B6BC-EE44657CF348}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flywheel.Win", "Flywheel.Win\Flywheel.Win.csproj", "{C4F7F419-55F1-4A2D-B3E9-63D8F179E3A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +27,26 @@ Global
 		{54CCBFAC-EF7D-4E43-8285-A3B78B13C15E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54CCBFAC-EF7D-4E43-8285-A3B78B13C15E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54CCBFAC-EF7D-4E43-8285-A3B78B13C15E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91A8450F-B929-497F-BD82-C1034A575504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91A8450F-B929-497F-BD82-C1034A575504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91A8450F-B929-497F-BD82-C1034A575504}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91A8450F-B929-497F-BD82-C1034A575504}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E156D248-AEE5-4741-93BF-31C974D06F2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E156D248-AEE5-4741-93BF-31C974D06F2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E156D248-AEE5-4741-93BF-31C974D06F2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E156D248-AEE5-4741-93BF-31C974D06F2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4F7F419-55F1-4A2D-B3E9-63D8F179E3A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4F7F419-55F1-4A2D-B3E9-63D8F179E3A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4F7F419-55F1-4A2D-B3E9-63D8F179E3A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4F7F419-55F1-4A2D-B3E9-63D8F179E3A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{54CCBFAC-EF7D-4E43-8285-A3B78B13C15E} = {DD5AD0DC-EECA-47D5-B6BC-EE44657CF348}
+		{91A8450F-B929-497F-BD82-C1034A575504} = {881196DE-04B5-47A4-8F7D-3481A7EC6DAD}
+		{E156D248-AEE5-4741-93BF-31C974D06F2D} = {881196DE-04B5-47A4-8F7D-3481A7EC6DAD}
+		{C4F7F419-55F1-4A2D-B3E9-63D8F179E3A8} = {32B70C08-A2CB-4C42-928D-DD4BB9340118}
 	EndGlobalSection
 EndGlobal

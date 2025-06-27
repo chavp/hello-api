@@ -1,42 +1,36 @@
-using FlyweelSystem.Tests.Mappings;
-using FlyweelSystem.Tests.Models;
-using FlyweelSystem.Tests.Values;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Primitives;
-using System.Collections.Immutable;
-using System.Text;
+
 
 namespace FlyweelSystem.Tests
 {
+    using Flywheel.Models;
+
     public class MooDengTest : TestBase
     {
         [Fact]
         public void SeedContext()
         {
-            var boundaryName = "MyZoo";
-            var externalBound = "TheWorld";
+            var nspAlies = "MyZoo";
+            var externalNspAlies = "TheWorld";
             using (var db = _sutDbContextFactory.CreateDbContext())
             using(var tran = db.Database.BeginTransaction()) 
             {
                 // Context
-                var moodengContext = saveElement(db, boundaryName, Models.ElementType.Context, "MooDeng", "MooDeng System Context");
+                var moodengContext = saveElement(db, nspAlies, ElementType.Context, "MooDeng", "MooDeng System Context");
 
                 // System
-                var moodengSys = saveElement(db, boundaryName, Models.ElementType.System, "MooDeng", "MooDeng System");
-                var customerSys = saveElement(db, externalBound, Models.ElementType.System, "Customer", "Customer", partyTypeCode: PartyType.Person);
+                var moodengSys = saveElement(db, nspAlies, ElementType.System, "MooDeng", "MooDeng System");
+                var customerSys = saveElement(db, externalNspAlies, ElementType.System, "Customer", "Customer", partyTypeCode: PartyType.Person);
 
                 // Container
-                var moodengWeb = saveElement(db, boundaryName, Models.ElementType.Container, "MooDengWeb", "MooDeng Web Apps");
-                var moodengApi = saveElement(db, boundaryName, Models.ElementType.Container, "MooDengApi", "MooDeng API");
-                var moodengDb = saveElement(db, boundaryName, Models.ElementType.Container, "MooDengDb", "MooDeng Database", partyTypeCode: PartyType.Database, techn: "MSSQL Server");
+                var moodengWeb = saveElement(db, nspAlies, ElementType.Container, "MooDengWeb", "MooDeng Web Apps", techn: "ASP.NET");
+                var moodengApi = saveElement(db, nspAlies,  ElementType.Container, "MooDengApi", "MooDeng API", techn: "ASP.NET");
+                var moodengDb = saveElement(db, nspAlies, ElementType.Container, "MooDengDb", "MooDeng Database", partyTypeCode: PartyType.Database, techn: "MSSQL Server");
 
-                var moodengUiWeb = saveElement(db, boundaryName, Models.ElementType.Component, "MooDengWeb", "MooDeng Web", techn: "Blazor ASP.NET");
-                var moodengApiWeb = saveElement(db, boundaryName, Models.ElementType.Component, "MooDengApi", "MooDeng API", techn: "ASP.NET Core");
-                var moodengServices = saveElement(db, boundaryName, Models.ElementType.Component, "MooDengServices", "MooDeng Domain Services", techn: "C#.NET");
-                var moodengModels = saveElement(db, boundaryName, Models.ElementType.Component, "MooDengModels", "MooDeng Domain Models", techn: "C#.NET");
-                var moodengMappings = saveElement(db, boundaryName, Models.ElementType.Component, "MooDengMappings", "MooDeng Model Mappings", techn: "C#.NET, EF");
+                var moodengUiWeb = saveElement(db, nspAlies, ElementType.Component, "MooDengWeb", "MooDeng Web", techn: "Blazor ASP.NET");
+                var moodengApiWeb = saveElement(db, nspAlies, ElementType.Component, "MooDengApi", "MooDeng API", techn: "ASP.NET Core");
+                var moodengServices = saveElement(db, nspAlies, ElementType.Component, "MooDengServices", "MooDeng Domain Services", techn: "C#.NET");
+                var moodengModels = saveElement(db, nspAlies, ElementType.Component, "MooDengModels", "MooDeng Domain Models", techn: "C#.NET");
+                var moodengMappings = saveElement(db, nspAlies, ElementType.Component, "MooDengMappings", "MooDeng Model Mappings", techn: "C#.NET, EF");
 
                 // System Context Include
                 saveContextRelationship(db, moodengContext, ElementRelationshipType.Inbound, moodengSys, "MooDeng Web");

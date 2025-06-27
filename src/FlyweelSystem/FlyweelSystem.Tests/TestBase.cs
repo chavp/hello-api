@@ -1,20 +1,16 @@
-﻿using FlyweelSystem.Tests.Mappings;
-using FlyweelSystem.Tests.Models;
-using FlyweelSystem.Tests.Queries;
-using FlyweelSystem.Tests.Values;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using FlyweelSystem.Tests.Queries;
-using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using System.Collections.Concurrent;
+using System.Collections.Immutable;
+using System.Text;
 
 namespace FlyweelSystem.Tests
 {
+    using Flywheel.Mappings;
+    using Flywheel.Mappings.Queries;
+    using Flywheel.Mappings.Values;
+    using Flywheel.Models;
+
     public abstract class TestBase
     {
         protected readonly IConfigurationRoot _config = null;
@@ -29,10 +25,10 @@ namespace FlyweelSystem.Tests
             _sutDbContextFactory = new FlywheelsDbContextFactory(_config.GetConnectionString("flywheels_db"));
         }
 
-        protected string getMermaidElement(string tabs, Guid boundaryId, ElementValue ctx)
+        protected string getMermaidElement(string tabs, Guid namespaceId, ElementValue ctx)
         {
-            var inBoundary = (boundaryId == ctx.BoundaryId);
-            var ext = inBoundary ? "":"_Ext";
+            var inNamespace = (namespaceId == ctx.NamespaceId);
+            var ext = inNamespace ? "":"_Ext";
             var system = "System";
             var container = "Container";
             if (ctx.PartyTypeCode == PartyType.Person)
@@ -98,7 +94,7 @@ namespace FlyweelSystem.Tests
             // Out Boundary
             foreach (var eleOut in sys.OutboundElements)
             {
-                resp.AppendLine(getMermaidElement(tabs, sys.BoundaryId, eleOut));
+                resp.AppendLine(getMermaidElement(tabs, sys.NamespaceId, eleOut));
             }
 
             var dicOutElems = new ConcurrentDictionary<Guid, ElementValue>();
@@ -110,7 +106,7 @@ namespace FlyweelSystem.Tests
                            && !sys.InboundElements.Any(x => x.ElementId == eIn.ElementId)
                            && !sys.OutboundElements.Any(x => x.ElementId == eIn.ElementId))
                     {
-                        resp.AppendLine(getMermaidElement(tabs, sys.BoundaryId, eIn));
+                        resp.AppendLine(getMermaidElement(tabs, sys.NamespaceId, eIn));
                     }
                 }
 
@@ -120,7 +116,7 @@ namespace FlyweelSystem.Tests
                         && !sys.InboundElements.Any(x => x.ElementId == eleOut.ElementId)
                         && !sys.OutboundElements.Any(x => x.ElementId == eleOut.ElementId))
                     {
-                        resp.AppendLine(getMermaidElement(tabs, sys.BoundaryId, eleOut));
+                        resp.AppendLine(getMermaidElement(tabs, sys.NamespaceId, eleOut));
                     }
                 }
 
@@ -131,7 +127,7 @@ namespace FlyweelSystem.Tests
                 + Environment.NewLine + tabs + "{ ");
             foreach (var e in sys.InboundElements)
             {
-                resp.AppendLine(getMermaidElement($"{tabs}\t", sys.BoundaryId, e));
+                resp.AppendLine(getMermaidElement($"{tabs}\t", sys.NamespaceId, e));
             }
             resp.AppendLine(tabs + "}");
 
@@ -168,14 +164,14 @@ namespace FlyweelSystem.Tests
 
         protected string getMermaidSystemContainers(string sysAlias, int shapeInRow)
         {
-            var sys = getElement(sysAlias, Models.ElementType.System, Models.ElementType.Container);
+            var sys = getElement(sysAlias, ElementType.System, ElementType.Container);
 
             var mermaid = buildC4Mermaid("C4Container", "System_Boundary", shapeInRow, sys);
             return mermaid;
         }
         protected string getMermaidSystemContext(string sysAlias, int shapeInRow)
         {
-            var ctx = getElement(sysAlias, Models.ElementType.Context, Models.ElementType.System);
+            var ctx = getElement(sysAlias, ElementType.Context, ElementType.System);
 
             var mermaid = buildC4Mermaid("C4Context", "Enterprise_Boundary", shapeInRow, ctx);
             return mermaid;
@@ -252,12 +248,12 @@ namespace FlyweelSystem.Tests
             db.SaveChanges();
             return target;
         }
-        protected Boundary saveBoundary(FlywheelsContext db, string alias)
+        protected Namespace saveNamespace(FlywheelsContext db, string alias)
         {
-            var target = db.Boundaries.SingleOrDefault(x => x.Alias == alias);
+            var target = db.Namespaces.SingleOrDefault(x => x.Alias == alias);
             if (target == null)
             {
-                target = new Boundary(alias);
+                target = new Namespace(alias);
                 db.Add(target);
             }
             db.SaveChanges();
@@ -270,7 +266,7 @@ namespace FlyweelSystem.Tests
             string? techn = null,
             string? partyTypeCode = null)
         {
-            var nsp = saveBoundary(db, nspAlias);
+            var nsp = saveNamespace(db, nspAlias);
             var elmType = saveElementType(db, typeCode);
             var partyType = savePartyType(db, partyTypeCode);
             var target = db.Elements.SingleOrDefault(x => x.Alias == alias && x.ElementType == elmType);
@@ -321,7 +317,7 @@ namespace FlyweelSystem.Tests
             {
                 var sys = db.Elements
                     .Include(x => x.ElementType)
-                    .Include(x => x.Boundary)
+                    .Include(x => x.Namespace)
                     .Include(x => x.PartyType)
                     .Single(el => el.Alias == alias
                     && el.ElementType.Code == fromTypeCode);
@@ -331,29 +327,10 @@ namespace FlyweelSystem.Tests
                 result.AfferentElements = db.GetAfferentElements(sys.Id.Value, fromTypeCode, toTypeCode);
                 result.EfferentElements = db.GetEfferentElements(sys.Id.Value, fromTypeCode, toTypeCode);
 
-                var reIncludeList = (from re in db.ElementRelationships
-                                .Include(x => x.ElementRelationshipType)
-                                .Include(x => x.ToElement)
-                                    .ThenInclude(y => y.ElementType)
-                                .Include(x => x.ToElement)
-                                    .ThenInclude(y => y.Boundary)
-                                .Include(x => x.ToElement)
-                                    .ThenInclude(y => y.PartyType)
-                              where re.FromElement == sys
-                              && re.ToElement.ElementType.Code == toTypeCode
-                              && (re.ElementRelationshipType.Code == ElementRelationshipType.Inbound 
-                              || re.ElementRelationshipType.Code == ElementRelationshipType.Outbound)
-                              select re)
-                              .AsNoTracking()
-                              .ToImmutableList();
+                var resultList = db.GetElements(sys.Id.Value, fromTypeCode, toTypeCode);
 
-                if (reIncludeList.Any())
+                if (resultList.Any())
                 {
-                    var resultList = reIncludeList
-                        .Select(x => x.ToElement
-                        .Convert(x.ElementRelationshipType.Code, x.Label))
-                        .ToImmutableList();
-
                     foreach (var element in resultList)
                     {
                         element.AfferentElements = db.GetAfferentElements(element.ElementId, fromTypeCode, toTypeCode);

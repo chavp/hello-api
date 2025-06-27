@@ -1,28 +1,21 @@
-﻿using FlyweelSystem.Tests.Mappings;
-using FlyweelSystem.Tests.Models;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FlyweelSystem.Tests
+﻿namespace FlyweelSystem.Tests
 {
+    using Flywheel.Models;
+
     public class C4Samples : TestBase
     {
         [Fact]
         public void SeedContext()
         {
             var nspAls = "C4Sample";
-            var externalSystem = "ExternalContextSystem";
+            var externalNpsAls = "TheWorld";
             using (var db = _sutDbContextFactory.CreateDbContext())
             using (var tran = db.Database.BeginTransaction())
             {
                 var sysCtx = saveElement(db, nspAls, ElementType.Context, "InternetBankingContext", "Internet Banking System"
                     , descr: "");
 
-                var personalBankingCustomer = saveElement(db, externalSystem, ElementType.System, "PersonalBankingCustomer"
+                var personalBankingCustomer = saveElement(db, externalNpsAls, ElementType.System, "PersonalBankingCustomer"
                     , "Personal Banking Customer"
                     , descr: "A customer of the bank, with personal bank accounts."
                     , partyTypeCode: PartyType.Person);
@@ -32,12 +25,12 @@ namespace FlyweelSystem.Tests
                     , descr: "Allows customers to view information about their bank accounts, and make payments."
                     );
 
-                var mainframeBankingSystem = saveElement(db, externalSystem, ElementType.System, "MainframeBankingSystem"
+                var mainframeBankingSystem = saveElement(db, externalNpsAls, ElementType.System, "MainframeBankingSystem"
                     , "Mainframe Banking System"
                     , descr: "Stores all of the core banking information about customers, accounts, transactions, etc."
                     );
 
-                var emailSystem = saveElement(db, externalSystem, ElementType.System, "EmailSystem"
+                var emailSystem = saveElement(db, externalNpsAls, ElementType.System, "EmailSystem"
                     , "E-mail System"
                     , descr: "The internal Microsoft Exchange e-mail system."
                     );
