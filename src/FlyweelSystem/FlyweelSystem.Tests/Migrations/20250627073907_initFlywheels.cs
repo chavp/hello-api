@@ -73,6 +73,25 @@ namespace FlyweelSystem.Tests.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PartyTypes",
+                schema: "flywheels",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    LastUpdate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LastUpdateBy = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
+                    Revision = table.Column<decimal>(type: "decimal(20,0)", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PartyTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Elements",
                 schema: "flywheels",
                 columns: table => new
@@ -82,7 +101,8 @@ namespace FlyweelSystem.Tests.Migrations
                     Label = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
                     Technical = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    ContextTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ElementTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PartyTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     BoundaryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
@@ -101,12 +121,18 @@ namespace FlyweelSystem.Tests.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Elements_ElementTypes_ContextTypeId",
-                        column: x => x.ContextTypeId,
+                        name: "FK_Elements_ElementTypes_ElementTypeId",
+                        column: x => x.ElementTypeId,
                         principalSchema: "flywheels",
                         principalTable: "ElementTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Elements_PartyTypes_PartyTypeId",
+                        column: x => x.PartyTypeId,
+                        principalSchema: "flywheels",
+                        principalTable: "PartyTypes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -179,22 +205,35 @@ namespace FlyweelSystem.Tests.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Elements_BoundaryId_Alias_ContextTypeId",
+                name: "IX_Elements_BoundaryId_Alias_ElementTypeId",
                 schema: "flywheels",
                 table: "Elements",
-                columns: new[] { "BoundaryId", "Alias", "ContextTypeId" },
+                columns: new[] { "BoundaryId", "Alias", "ElementTypeId" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Elements_ContextTypeId",
+                name: "IX_Elements_ElementTypeId",
                 schema: "flywheels",
                 table: "Elements",
-                column: "ContextTypeId");
+                column: "ElementTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Elements_PartyTypeId",
+                schema: "flywheels",
+                table: "Elements",
+                column: "PartyTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ElementTypes_Code",
                 schema: "flywheels",
                 table: "ElementTypes",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PartyTypes_Code",
+                schema: "flywheels",
+                table: "PartyTypes",
                 column: "Code",
                 unique: true);
         }
@@ -220,6 +259,10 @@ namespace FlyweelSystem.Tests.Migrations
 
             migrationBuilder.DropTable(
                 name: "ElementTypes",
+                schema: "flywheels");
+
+            migrationBuilder.DropTable(
+                name: "PartyTypes",
                 schema: "flywheels");
         }
     }

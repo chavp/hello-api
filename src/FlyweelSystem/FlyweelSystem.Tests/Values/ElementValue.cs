@@ -27,15 +27,28 @@ namespace FlyweelSystem.Tests.Values
         public string ElementTypeCode { get; set; }
         public string Alias { get; set; }
         public string Label { get; set; }
+        public string? Description { get; set; }
+        public string? Techn { get; set; }
         public RelationshipValue? Relationship {  get; set; }   
-        public ImmutableList<ElementValue> IncludeElements { get; set; } = ImmutableList<ElementValue>.Empty;
-        public ImmutableList<ElementValue> OutElements { get; set; } = ImmutableList<ElementValue>.Empty;
-        public ImmutableList<ElementValue> InElements { get; set; } = ImmutableList<ElementValue>.Empty;
+        public ImmutableList<ElementValue> InboundElements { get; set; } = ImmutableList<ElementValue>.Empty;
+        public ImmutableList<ElementValue> OutboundElements { get; set; } = ImmutableList<ElementValue>.Empty;
+
+        /// <summary>
+        /// Incoming
+        /// </summary>
+        public ImmutableList<ElementValue> AfferentElements { get; set; } = ImmutableList<ElementValue>.Empty;
+
+        /// <summary>
+        /// Outging
+        /// </summary>
+        public ImmutableList<ElementValue> EfferentElements { get; set; } = ImmutableList<ElementValue>.Empty;
+        
     }
 
     public class RelationshipValue
     {
         public string? TypeCode { get; set; }
         public string? Label { get; set; }
+        public string? Techn { get; set; }
     }
 }

@@ -79,9 +79,6 @@ namespace FlyweelSystem.Tests.Migrations
                     b.Property<Guid>("BoundaryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ContextTypeId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("datetimeoffset");
 
@@ -93,6 +90,9 @@ namespace FlyweelSystem.Tests.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
+
+                    b.Property<Guid>("ElementTypeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Label")
                         .HasMaxLength(1000)
@@ -117,11 +117,11 @@ namespace FlyweelSystem.Tests.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContextTypeId");
+                    b.HasIndex("ElementTypeId");
 
                     b.HasIndex("PartyTypeId");
 
-                    b.HasIndex("BoundaryId", "Alias", "ContextTypeId")
+                    b.HasIndex("BoundaryId", "Alias", "ElementTypeId")
                         .IsUnique();
 
                     b.ToTable("Elements", "flywheels");
@@ -313,9 +313,9 @@ namespace FlyweelSystem.Tests.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FlyweelSystem.Tests.Models.ElementType", "ContextType")
+                    b.HasOne("FlyweelSystem.Tests.Models.ElementType", "ElementType")
                         .WithMany()
-                        .HasForeignKey("ContextTypeId")
+                        .HasForeignKey("ElementTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -325,7 +325,7 @@ namespace FlyweelSystem.Tests.Migrations
 
                     b.Navigation("Boundary");
 
-                    b.Navigation("ContextType");
+                    b.Navigation("ElementType");
 
                     b.Navigation("PartyType");
                 });

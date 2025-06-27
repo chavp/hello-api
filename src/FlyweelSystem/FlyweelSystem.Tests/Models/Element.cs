@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 namespace FlyweelSystem.Tests.Models
 {
 
-    [Index(nameof(BoundaryId), nameof(Alias), nameof(ContextTypeId), IsUnique = true)]
+    [Index(nameof(BoundaryId), nameof(Alias), nameof(ElementTypeId), IsUnique = true)]
     public class Element : DomainModel
     {
         protected Element() { }
-        public Element(Boundary? bound, ElementType contextType, string alias, string label) 
+        public Element(Boundary? bound, ElementType elementType, string alias, string label) 
         {
             Boundary = bound;
-            ContextType = contextType;
+            ElementType = elementType;
             Alias = alias;
             Label = label;
         }
@@ -34,8 +34,8 @@ namespace FlyweelSystem.Tests.Models
         public string? Technical { get; set; }
 
         [Required]
-        public Guid? ContextTypeId { get; set; }
-        public ElementType? ContextType { get; set; }
+        public Guid? ElementTypeId { get; set; }
+        public ElementType? ElementType { get; set; }
 
         public Guid? PartyTypeId { get; set; }
         public PartyType? PartyType { get; set; }

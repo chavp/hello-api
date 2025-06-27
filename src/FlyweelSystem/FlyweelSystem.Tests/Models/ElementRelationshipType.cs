@@ -12,7 +12,8 @@ namespace FlyweelSystem.Tests.Models
     {
         //public const string Internal = "INTERNAL";
         //public const string External = "EXTERNAL";
-        public const string Include = "INCLUDE";
+        public const string Inbound = "INBOUND";
+        public const string Outbound = "OUTBOUND";
         public const string OneWay = "ONE_WAY";
         public const string TwoWay = "TWO_WAY";
 
