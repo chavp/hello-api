@@ -134,11 +134,11 @@ namespace FlyweelSystem.Tests
         [Fact]
         public void TestMermaid()
         {
-            var mermaidSystemContext = getMermaidContext("InternetBankingContext", 3);
+            var mermaidSystemContext = getMermaidSystemContext("InternetBankingContext", 3);
 
-            var mermaidSystem = getMermaidSystem("InternetBankingSystem", 3);
+            var mermaidSystem = getMermaidSystemContainers("InternetBankingSystem", 3);
 
-            var mermaidContainer = getMermaidContainer("InternetBankingSystem.APIApplication", 3);
+            var mermaidContainer = getMermaidContainerComponents("InternetBankingSystem.APIApplication", 3);
         }
     }
 }

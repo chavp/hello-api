@@ -64,7 +64,7 @@ namespace FlyweelSystem.Tests
             };
         }
 
-        protected string getMermaidContainer(string sysAlias, int shapeInRow)
+        protected string getMermaidContainerComponents(string sysAlias, int shapeInRow)
         {
             var sys = getElement(sysAlias, ElementType.Container, ElementType.Component);
             var mermaid = buildC4Mermaid("C4Component", "Container_Boundary", shapeInRow, sys);
@@ -166,14 +166,14 @@ namespace FlyweelSystem.Tests
             return resp.ToString();
         }
 
-        protected string getMermaidSystem(string sysAlias, int shapeInRow)
+        protected string getMermaidSystemContainers(string sysAlias, int shapeInRow)
         {
             var sys = getElement(sysAlias, Models.ElementType.System, Models.ElementType.Container);
 
             var mermaid = buildC4Mermaid("C4Container", "System_Boundary", shapeInRow, sys);
             return mermaid;
         }
-        protected string getMermaidContext(string sysAlias, int shapeInRow)
+        protected string getMermaidSystemContext(string sysAlias, int shapeInRow)
         {
             var ctx = getElement(sysAlias, Models.ElementType.Context, Models.ElementType.System);
 

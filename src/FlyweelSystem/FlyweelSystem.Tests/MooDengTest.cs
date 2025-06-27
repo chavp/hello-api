@@ -30,13 +30,13 @@ namespace FlyweelSystem.Tests
                 // Container
                 var moodengWeb = saveElement(db, boundaryName, Models.ElementType.Container, "MooDengWeb", "MooDeng Web Apps");
                 var moodengApi = saveElement(db, boundaryName, Models.ElementType.Container, "MooDengApi", "MooDeng API");
-                var moodengDb = saveElement(db, boundaryName, Models.ElementType.Container, "MooDengDb", "MooDeng Database", partyTypeCode: PartyType.Database);
+                var moodengDb = saveElement(db, boundaryName, Models.ElementType.Container, "MooDengDb", "MooDeng Database", partyTypeCode: PartyType.Database, techn: "MSSQL Server");
 
-                var moodengUiWeb = saveElement(db, boundaryName, Models.ElementType.Component, "MooDengWeb", "MooDeng Web");
-                var moodengApiWeb = saveElement(db, boundaryName, Models.ElementType.Component, "MooDengApi", "MooDeng API");
-                var moodengServices = saveElement(db, boundaryName, Models.ElementType.Component, "MooDengServices", "MooDeng Domain Services");
-                var moodengModels = saveElement(db, boundaryName, Models.ElementType.Component, "MooDengModels", "MooDeng Domain Models");
-                var moodengMappings = saveElement(db, boundaryName, Models.ElementType.Component, "MooDengMappings", "MooDeng Model Mappings");
+                var moodengUiWeb = saveElement(db, boundaryName, Models.ElementType.Component, "MooDengWeb", "MooDeng Web", techn: "Blazor ASP.NET");
+                var moodengApiWeb = saveElement(db, boundaryName, Models.ElementType.Component, "MooDengApi", "MooDeng API", techn: "ASP.NET Core");
+                var moodengServices = saveElement(db, boundaryName, Models.ElementType.Component, "MooDengServices", "MooDeng Domain Services", techn: "C#.NET");
+                var moodengModels = saveElement(db, boundaryName, Models.ElementType.Component, "MooDengModels", "MooDeng Domain Models", techn: "C#.NET");
+                var moodengMappings = saveElement(db, boundaryName, Models.ElementType.Component, "MooDengMappings", "MooDeng Model Mappings", techn: "C#.NET, EF");
 
                 // System Context Include
                 saveContextRelationship(db, moodengContext, ElementRelationshipType.Inbound, moodengSys, "MooDeng Web");
@@ -79,12 +79,12 @@ namespace FlyweelSystem.Tests
         [Fact]
         public void TestContext()
         {
-            var mermaidSystemContext = getMermaidContext("MooDeng", 3);
+            var mermaidSystemContext = getMermaidSystemContext("MooDeng", 3);
 
-            var mermaidSystem = getMermaidSystem("MooDeng", 3);
+            var mermaidSystem = getMermaidSystemContainers("MooDeng", 3);
 
-            var apiMermaidContainer = getMermaidContainer("MooDengApi", 3);
-            var uiMermaidContainer = getMermaidContainer("MooDengWeb", 3);
+            var apiMermaidContainer = getMermaidContainerComponents("MooDengApi", 3);
+            var uiMermaidContainer = getMermaidContainerComponents("MooDengWeb", 3);
         }
     }
 }
