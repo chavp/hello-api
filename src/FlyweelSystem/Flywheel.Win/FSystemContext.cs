@@ -1,16 +1,16 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Immutable;
 
 namespace Flywheel.Win
 {
-    using Flywheel.Mappings.Queries;
     using Flywheel.Mappings;
+    using Flywheel.Mappings.Queries;
     using Flywheel.Models;
+    using Flywheel.Win.SystemContexts;
     using Flywheel.Win.ViewModels;
-    using static System.ComponentModel.Design.ObjectSelectorEditor;
+    using System.Xml;
 
     public partial class FSystemContext : Form
     {
@@ -94,18 +94,87 @@ namespace Flywheel.Win
 
         private void dgvSystem_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            loadElements<SystemVM, ContainerVM>(e, 
+            loadElements<SystemVM, ContainerVM>(e.RowIndex,
                 dgvSystem, containerVMBindingSource, ElementType.Container);
+
         }
 
         private void dgvContainer_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            loadElements<ContainerVM, ComponentVM>(e,
+            loadElements<ContainerVM, ComponentVM>(e.RowIndex,
                 dgvContainer, componentVMBindingSource, ElementType.Component);
         }
 
+        private void dgvSystem_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            saveElements<SystemContextVM>(e.RowIndex, dgvSystem);
+        }
+
+        private void dgvContainer_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            saveElements<SystemContextVM>(e.RowIndex, dgvContainer);
+        }
+
+        private void dgvComponent_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            saveElements<SystemContextVM>(e.RowIndex, dgvComponent);
+        }
+
+        private void btnDelSysCtx_Click(object sender, EventArgs e)
+        {
+            var eff = delElement<SystemContextVM>(dgvSystem);
+            if (eff > 0)
+            {
+                loadElements<SystemVM, ContainerVM>(0,
+                    dgvSystem, containerVMBindingSource, ElementType.Container);
+            }
+        }
+
+        private void btnDelContainser_Click(object sender, EventArgs e)
+        {
+            var eff = delElement<ContainerVM>(dgvContainer);
+            if (eff > 0)
+            {
+                loadElements<ContainerVM, ComponentVM>(0,
+                    dgvContainer, componentVMBindingSource, ElementType.Component);
+            }
+        }
+
+        private void btnDelComponent_Click(object sender, EventArgs e)
+        {
+            var eff = delElement<ComponentVM>(dgvContainer);
+            if (eff > 0)
+            {
+                loadElements<ContainerVM, ComponentVM>(0,
+                    dgvComponent, componentVMBindingSource, ElementType.Component);
+            }
+        }
+
+        private int delElement<T>(DataGridView dgv)
+            where T : SystemContextVM
+        {
+            var selected = getElements<T>(0, dgv);
+            if (selected == null) return 0;
+
+            using (var db = _flywheelsDbContextFactory.CreateDbContext())
+            {
+                var target = db.Elements.Single(x => x.Id == selected.Id);
+                var re = db.ElementRelationships
+                    .Count(x => x.FromElementId == target.Id
+                    || x.ToElementId == target.Id)
+                    ;
+                if (re > 0)
+                {
+                    MessageBox.Show(this, "Can't delete element with relationships");
+                    return 0;
+                }
+                db.Remove(selected);
+                return db.SaveChanges();
+            }
+        }
+
         private void loadElements<T1, T2>(
-                DataGridViewCellMouseEventArgs e,
+                int rowIndex,
                 DataGridView dgv,
                 BindingSource ds,
                 string toElementTypeCode)
@@ -113,7 +182,7 @@ namespace Flywheel.Win
                 where T2 : SystemVM, new()
         {
             ds.DataSource = null;
-            if (dgv.Rows[e.RowIndex].DataBoundItem is T1 selected)
+            if (dgv.Rows[rowIndex].DataBoundItem is T1 selected)
             {
                 if (selected.RelationshipCode != ElementRelationshipType.Inbound) return;
 
@@ -149,7 +218,7 @@ namespace Flywheel.Win
 
         private void loadData<T>(
             BindingSource ds,
-            Guid namespaceIdId, 
+            Guid namespaceIdId,
             string elementTypeCode
             )
             where T : SystemContextVM, new()
@@ -178,5 +247,31 @@ namespace Flywheel.Win
             }
         }
 
+        private void saveElements<T>(
+                int rowIndex,
+                DataGridView dgv)
+                where T : SystemContextVM
+        {
+            var selected = getElements<T>(rowIndex, dgv);
+            if (selected != null)
+            {
+                var form = new FSaveSystemContext(selected, _flywheelsDbContextFactory);
+                if (DialogResult.OK == form.ShowDialog(this))
+                {
+
+                }
+            }
+        }
+        private T? getElements<T>(
+                int rowIndex,
+                DataGridView dgv)
+                where T : SystemContextVM
+        {
+            if (dgv.Rows[rowIndex].DataBoundItem is T selected)
+            {
+                return selected;
+            }
+            return null;
+        }
     }
 }

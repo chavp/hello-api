@@ -25,7 +25,8 @@
                     Label = relationshipLabel
                 };
             }
-            if(target.PartyType != null)
+            resp.PartyTypeCode = target.ElementType.Code;
+            if (target.PartyType != null)
             {
                 resp.PartyTypeId = target.PartyType.Id.Value;
                 resp.PartyTypeCode = target.PartyType.Code;

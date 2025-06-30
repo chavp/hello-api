@@ -4,5 +4,8 @@
     <Compile Update="FSystemContext.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="SystemContexts\FSaveSystemContext.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

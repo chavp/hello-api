@@ -58,6 +58,9 @@
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
             componentVMBindingSource = new BindingSource(components);
+            btnDelSysCtx = new Button();
+            btnDelContainser = new Button();
+            btnDelComponent = new Button();
             ((System.ComponentModel.ISupportInitialize)namespaceVMBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)systemContextVMBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvSystem).BeginInit();
@@ -74,7 +77,7 @@
             cmbNamespace.DisplayMember = "Display";
             cmbNamespace.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbNamespace.FormattingEnabled = true;
-            cmbNamespace.Location = new Point(133, 15);
+            cmbNamespace.Location = new Point(121, 15);
             cmbNamespace.Name = "cmbNamespace";
             cmbNamespace.Size = new Size(196, 33);
             cmbNamespace.TabIndex = 0;
@@ -83,7 +86,7 @@
             // lblBoundary
             // 
             lblBoundary.AutoSize = true;
-            lblBoundary.Location = new Point(23, 15);
+            lblBoundary.Location = new Point(11, 15);
             lblBoundary.Name = "lblBoundary";
             lblBoundary.Size = new Size(104, 25);
             lblBoundary.TabIndex = 1;
@@ -92,7 +95,7 @@
             // lblSystemContext
             // 
             lblSystemContext.AutoSize = true;
-            lblSystemContext.Location = new Point(387, 15);
+            lblSystemContext.Location = new Point(375, 15);
             lblSystemContext.Name = "lblSystemContext";
             lblSystemContext.Size = new Size(130, 25);
             lblSystemContext.TabIndex = 2;
@@ -104,7 +107,7 @@
             cmbSystemContext.DisplayMember = "Display";
             cmbSystemContext.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSystemContext.FormattingEnabled = true;
-            cmbSystemContext.Location = new Point(523, 15);
+            cmbSystemContext.Location = new Point(511, 15);
             cmbSystemContext.Name = "cmbSystemContext";
             cmbSystemContext.Size = new Size(531, 33);
             cmbSystemContext.TabIndex = 3;
@@ -122,7 +125,7 @@
             dgvSystem.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSystem.Columns.AddRange(new DataGridViewColumn[] { labelDataGridViewTextBoxColumn, PartyTypeCode, RelationshipCode, descriptionDataGridViewTextBoxColumn });
             dgvSystem.DataSource = systemVMBindingSource;
-            dgvSystem.Location = new Point(133, 62);
+            dgvSystem.Location = new Point(121, 62);
             dgvSystem.Name = "dgvSystem";
             dgvSystem.ReadOnly = true;
             dgvSystem.RowHeadersWidth = 62;
@@ -130,6 +133,7 @@
             dgvSystem.TabIndex = 4;
             dgvSystem.CellClick += dgvSystem_CellClick;
             dgvSystem.RowHeaderMouseClick += dgvSystem_RowHeaderMouseClick;
+            dgvSystem.RowHeaderMouseDoubleClick += dgvSystem_RowHeaderMouseDoubleClick;
             // 
             // labelDataGridViewTextBoxColumn
             // 
@@ -174,7 +178,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(50, 62);
+            label1.Location = new Point(38, 62);
             label1.Name = "label1";
             label1.Size = new Size(77, 25);
             label1.TabIndex = 5;
@@ -188,7 +192,7 @@
             dgvContainer.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvContainer.Columns.AddRange(new DataGridViewColumn[] { labelDataGridViewTextBoxColumn1, partyTypeCodeDataGridViewTextBoxColumn, relationshipCodeDataGridViewTextBoxColumn, technicalDataGridViewTextBoxColumn, descriptionDataGridViewTextBoxColumn1 });
             dgvContainer.DataSource = containerVMBindingSource;
-            dgvContainer.Location = new Point(133, 321);
+            dgvContainer.Location = new Point(121, 321);
             dgvContainer.Name = "dgvContainer";
             dgvContainer.ReadOnly = true;
             dgvContainer.RowHeadersWidth = 62;
@@ -196,6 +200,7 @@
             dgvContainer.TabIndex = 6;
             dgvContainer.CellClick += dgvContainer_CellClick;
             dgvContainer.RowHeaderMouseClick += dgvContainer_RowHeaderMouseClick;
+            dgvContainer.RowHeaderMouseDoubleClick += dgvContainer_RowHeaderMouseDoubleClick;
             // 
             // labelDataGridViewTextBoxColumn1
             // 
@@ -249,7 +254,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(31, 321);
+            label2.Location = new Point(19, 321);
             label2.Name = "label2";
             label2.Size = new Size(96, 25);
             label2.TabIndex = 7;
@@ -258,7 +263,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(12, 639);
+            label3.Location = new Point(0, 639);
             label3.Name = "label3";
             label3.Size = new Size(115, 25);
             label3.TabIndex = 8;
@@ -272,12 +277,13 @@
             dgvComponent.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvComponent.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5 });
             dgvComponent.DataSource = componentVMBindingSource;
-            dgvComponent.Location = new Point(133, 639);
+            dgvComponent.Location = new Point(121, 639);
             dgvComponent.Name = "dgvComponent";
             dgvComponent.ReadOnly = true;
             dgvComponent.RowHeadersWidth = 62;
             dgvComponent.Size = new Size(921, 297);
             dgvComponent.TabIndex = 9;
+            dgvComponent.RowHeaderMouseDoubleClick += dgvComponent_RowHeaderMouseDoubleClick;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -328,11 +334,44 @@
             // 
             componentVMBindingSource.DataSource = typeof(ViewModels.ComponentVM);
             // 
+            // btnDelSysCtx
+            // 
+            btnDelSysCtx.Location = new Point(1048, 98);
+            btnDelSysCtx.Name = "btnDelSysCtx";
+            btnDelSysCtx.Size = new Size(72, 34);
+            btnDelSysCtx.TabIndex = 10;
+            btnDelSysCtx.Text = "Del";
+            btnDelSysCtx.UseVisualStyleBackColor = true;
+            btnDelSysCtx.Click += btnDelSysCtx_Click;
+            // 
+            // btnDelContainser
+            // 
+            btnDelContainser.Location = new Point(1048, 359);
+            btnDelContainser.Name = "btnDelContainser";
+            btnDelContainser.Size = new Size(72, 34);
+            btnDelContainser.TabIndex = 11;
+            btnDelContainser.Text = "Del";
+            btnDelContainser.UseVisualStyleBackColor = true;
+            btnDelContainser.Click += btnDelContainser_Click;
+            // 
+            // btnDelComponent
+            // 
+            btnDelComponent.Location = new Point(1048, 676);
+            btnDelComponent.Name = "btnDelComponent";
+            btnDelComponent.Size = new Size(72, 34);
+            btnDelComponent.TabIndex = 12;
+            btnDelComponent.Text = "Del";
+            btnDelComponent.UseVisualStyleBackColor = true;
+            btnDelComponent.Click += btnDelComponent_Click;
+            // 
             // FSystemContext
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1331, 948);
+            ClientSize = new Size(1483, 948);
+            Controls.Add(btnDelComponent);
+            Controls.Add(btnDelContainser);
+            Controls.Add(btnDelSysCtx);
             Controls.Add(dgvComponent);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -391,5 +430,8 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private Button btnDelSysCtx;
+        private Button btnDelContainser;
+        private Button btnDelComponent;
     }
 }
