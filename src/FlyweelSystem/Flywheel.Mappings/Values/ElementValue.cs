@@ -26,7 +26,16 @@ namespace Flywheel.Mappings.Values
         public string Label { get; set; }
         public string? Description { get; set; }
         public string? Techn { get; set; }
-        public RelationshipValue? Relationship {  get; set; }   
+        public RelationshipValue? Relationship {  get; set; }
+        public string? RelationshipCode 
+        {
+            get
+            {
+                if (Relationship != null) return Relationship.TypeCode;
+                return null;
+            }
+        }
+
         public ImmutableList<ElementValue> InboundElements { get; set; } = ImmutableList<ElementValue>.Empty;
         public ImmutableList<ElementValue> OutboundElements { get; set; } = ImmutableList<ElementValue>.Empty;
 

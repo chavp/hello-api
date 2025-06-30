@@ -210,6 +210,7 @@ namespace Flywheel.Win
                     PartyTypeCode = x.PartyTypeCode ?? x.ElementTypeCode,
                     PartyTypeId = x.PartyTypeId,
                     ElementTypeId = x.ElementTypeId,
+                    ElementTypeCode = x.ElementTypeCode,
                     RelationshipCode = x.Relationship.TypeCode
                 });
 
