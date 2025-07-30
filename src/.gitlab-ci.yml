@@ -1,0 +1,31 @@
+stages:
+  - build
+
+variables:
+  DOTNET_VERSION: "8.0"
+  PROJECT_PATH: "*/src/SimpleApi"
+  PROJECT_NAME: "SimpleApi"
+
+cache:
+  key: "$CI_JOB_STAGE-$CI_COMMIT_REF_SLUG"
+  paths:
+    - "$PROJECT_PATH/bin/"
+    - "$PROJECT_PATH/obj/"
+    - "~/.nuget/packages"
+  policy: pull-push
+
+# Build stage
+build:
+  stage: build
+  image: mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION
+  script:
+    - cd $PROJECT_PATH
+    - dotnet restore
+    - dotnet build --configuration Release --no-restore
+    - dotnet publish --configuration Release --no-build --output ../publish
+  artifacts:
+    paths:
+      - src/publish/
+    expire_in: 1 hour
+  only:
+    - main
