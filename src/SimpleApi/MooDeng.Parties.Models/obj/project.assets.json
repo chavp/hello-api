@@ -594,23 +594,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\10040489\\.nuget\\packages\\": {},
+    "C:\\Users\\Parinya.c\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\projects\\mygit\\api\\hello-api\\hello-api\\src\\SimpleApi\\MooDeng.Parties.Models\\MooDeng.Parties.Models.csproj",
+      "projectUniqueName": "C:\\Users\\Parinya.c\\Documents\\GitHub\\hello-api\\src\\SimpleApi\\MooDeng.Parties.Models\\MooDeng.Parties.Models.csproj",
       "projectName": "MooDeng.Parties.Models",
-      "projectPath": "D:\\projects\\mygit\\api\\hello-api\\hello-api\\src\\SimpleApi\\MooDeng.Parties.Models\\MooDeng.Parties.Models.csproj",
-      "packagesPath": "C:\\Users\\10040489\\.nuget\\packages\\",
-      "outputPath": "D:\\projects\\mygit\\api\\hello-api\\hello-api\\src\\SimpleApi\\MooDeng.Parties.Models\\obj\\",
+      "projectPath": "C:\\Users\\Parinya.c\\Documents\\GitHub\\hello-api\\src\\SimpleApi\\MooDeng.Parties.Models\\MooDeng.Parties.Models.csproj",
+      "packagesPath": "C:\\Users\\Parinya.c\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Parinya.c\\Documents\\GitHub\\hello-api\\src\\SimpleApi\\MooDeng.Parties.Models\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\10040489\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Parinya.c\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -638,7 +638,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -665,7 +665,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
